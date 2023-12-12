@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Post</title>
+    <link rel='stylesheet' href="{% static 'cssfile/post.css' %}">
+    <script defer src="https://unpkg.com/image-compressor.js/dist/image-compressor.min.js"></script>
+    <script defer src="{% static 'jsfile/post.js' %}"></script>
+
+</head>
+
+<body>
+  <input type="file" name="image_data" id="infile"  class="disabled" accept=".jpg, .jpeg, .png" disabled>
+  <div id="compressedImageContainer" class="image-container"> 
+  <img id="compressedImage" alt="Compressed Image" style="display: none;">
+  <br>
+  <input id="about" type="text" name="text_data" placeholder="About">
+  </div>
+  <button type="submit" id="submit">Submit</button>
+</body>
+</html>
+

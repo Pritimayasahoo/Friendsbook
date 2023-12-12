@@ -1,0 +1,141 @@
+<head>
+    {% load static %}
+    <style>
+  
+      .comment-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .comments {
+      height: 450px; /* Set the maximum height to allow scrolling */
+      overflow-y: scroll; /* Enable vertical scrolling */
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    
+    .comment {
+      margin-bottom: 10px;
+    }
+    
+    .comment-input {
+      width: 100%;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    
+    input[type="submit"] {
+      margin-top: 5px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  
+    .comment-input {
+      /* Existing styles... */
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding:10px;
+      border:None;
+     
+    }
+    
+    .comment-input .comment-field {
+      flex-grow: 1;
+      padding: 10px;
+      border: 2px solid green;
+      border-radius: 5px;
+      min-width: 800px; /* Set the minimum width for the input field */
+      height: 40px; /* Set the height for the input field */
+      font-size: 16px; /* Set the font size for the input field */
+    }
+    
+    .send-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 80%;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top:8px;
+    }
+    .comment-input .send-button {
+      /* Add the new styles here */
+      width: 80px; /* Set the desired width, you can adjust this value */
+      height: 60px; /* Set the desired height, you can adjust this value */
+    }
+    
+    /* For mobile devices */
+    @media (max-width: 1068px) {
+      .comments {
+        height:calc((100vw *170) / 100);
+        margin-bottom:-(calc((100vw *5) / 100));
+      }
+      .comment-input .comment-field {
+        min-width:calc((100vw *85) / 100); /* Set the minimum width for the input field */
+      height: 90px; /* Set the height for the input field */
+      margin-top:5px;
+      font-size:35px;
+      }
+      .comment-input .send-button {
+        /* Add the new styles here */
+        width: 120px; /* Set the desired width, you can adjust this value */
+        height: 60px; /* Set the desired height, you can adjust this value */
+        padding:0px;
+        margin-right:10px;
+        margin-top:25px;
+        font-size:45px;
+      }
+    }
+  </style>
+    
+  
+  </head>
+  
+  <body>
+    <div class="comment-section">
+      <div class="comments" id="comment_block">
+        {% for comment in allcomments %}
+          <div class="comment">
+            <h1>comment by: {{ comment.comment_by.name }}</h1>
+            <h3>{{ comment.text }}</h3>
+            <br>
+          </div>
+        {% endfor %}
+      </div>
+      <input type="hidden" id="commentBy" value="{{recent_user.name}}">
+      <div class="comment-input">
+        <form id="uploadForm" method="POST" data-post-url="{% url 'createcomment' %}">
+          {% csrf_token %}
+          <input id="comment" type="text" placeholder="Your comment" name="comment" class="comment-field" required> 
+          <input id="hide" type='hidden' value={{post_id}} name='id'>
+          <button type="submit" class="send-button">Send</button>
+        </form>
+      </div> 
+    </div>
+    
+  </form>
+  <script src="{% static 'jsfile/comment.js' %}"></script>
+  </body>

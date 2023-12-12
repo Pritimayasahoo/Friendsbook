@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Own profile</title>
+    <link rel='stylesheet' href="{% static 'cssfile/ownprofile.css' %}">
+    <script defer src="{% static 'jsfile/ownprofile.js' %}"></script>
+</head>
+
+</head>
+<body>
+  <div class="profile-form">
+    <h2>Create Profile</h2>
+    <form id="profileForm" method="POST" action="/profile/" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required  value={{myprofile.name}}>
+      
+      <label for="profilepic">Profile Picture:</label>
+      <input type="file" id="profilepic" name="loadimage" accept=".jpg, .jpeg, .png">
+      
+
+      
+      <div id="wrapper"></div>
+      
+      <label for="about">About:</label>
+      <textarea id="about" name="about" value={{myprofile.about}} rows="4" ></textarea>
+      
+      <label for="school">Currently School Name:</label>
+      <input type="text" id="school" name="school" value={{myprofile.current_study}}>
+      
+      <input type="submit" value="Create">
+      
+      <div class="error-message" id="error-message"></div>
+    </form>
+  </div>
+
+</body>
+</html>

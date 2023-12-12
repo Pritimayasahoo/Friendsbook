@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home2</title>
+    <link rel='stylesheet' href="{% static 'cssfile/home2.css' %}">
+
+</head>
+
+    {%for post in all_post%}
+    <div class="post-section">
+        <div class="post">
+          <div class="user-info">
+            <img src="{{post.poster_profile.profileimage.url}}" alt="User Profile Picture" class="profile-picture">
+            <span class="username">Username</span>
+          </div>
+          <a href={{post.my_post.url}}><img src="{{post.my_post.url}}" alt="Post Image" class="post-image"></a>
+          <div class="post-actions">
+            <span class="likes">{{post.no_of_like}}</span>
+            <a href='like?like_id={{post.id}}'><button class="like-button">Like</button></a>
+          </div>
+        </div>
+        <!-- Repeat the above structure for each post -->
+      </div>
+      {%endfor%}
+
+<script>
+    // Add an event listener to each like button
+const likeButtons = document.querySelectorAll('.like-button');
+likeButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Handle the like button click event
+    console.log('Like button clicked!');
+  });
+});
+</script>      

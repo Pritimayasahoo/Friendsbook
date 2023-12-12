@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 400px;
+    padding: 50px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group #email{
+      margin-right:60px;
+
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .form-group input[type="submit"] {
+    background-color: #4caf50;
+    color: #ffffff;
+    cursor: pointer;
+    
+    
+  }
+
+  .form-group input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  @media(max-width: 1000px) {
+    .container {
+      max-width: 150%;
+      padding: 50px;
+      border-radius:7px;
+      height:500px;
+      background-color:lightgrey;
+      width:800px;
+      margin:0px;
+    }
+    .form-group input[type="submit"] {
+      width: 73%;
+      border-radius: 3px;
+      margin-left:110px;
+      margin-top:15px;
+      
+    }
+  }
+  
+  h3 {
+    color:red;
+  }

@@ -1,0 +1,247 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+footer {
+  position: fixed;
+  left: 0;
+  width:100%;
+  background-color:lightgray;
+  /* Other styles for the fixed header/footer */
+}
+
+footer {
+  bottom: 0;
+}
+
+.pic{
+  margin-left:0px;
+  padding-right:5px;
+  margin-top:-8px;
+}
+
+main {
+  padding-top:0px; /* Adjust the top padding to accommodate the fixed header */
+  padding-bottom:50px; /* Adjust the bottom padding to accommodate the fixed footer */
+  overflow-y: scroll;
+  /* Other styles for the scrollable content */
+}
+
+/* Additional styles for the images or content within the main section */
+main img {
+  display: block;
+  margin-left:350px; /* Adjust the margin as desired */
+}
+
+header nav, footer nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height:50px; /* Adjust the height as desired */
+}
+.comment-icon {
+  margin-bottom: 5px; /* Adjust the spacing between the icon and text */
+}
+
+.comment-text {
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+/* Remove underline from anchor tags */
+a {
+  text-decoration: none;
+  display: inline-block;
+  text-decoration: none;
+  }
+  
+/* Style for the buttons */
+.btn-home,
+.btn-post,
+.btn-notification {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+color: brown; /* Adjust the color as needed */
+}
+
+/* Style for the labels */
+
+
+header {
+display: flex;
+align-items: center;
+padding:12px;
+margin-top:-9px;
+height:30px
+}
+
+
+
+/*Comment button styling */
+.comment-button {
+  float: right;
+  margin-right:320px;
+  border: none;
+  background-color:None; /* Adjust the background color as needed */
+  color:Blue; /* Adjust the text color as needed */
+  font-size:30px; 
+ 
+}
+
+/*Like letter styling*/
+#likes{
+  margin-left:320px;
+  margin-top:0px;
+  margin-bottom: 0px;
+  font-size:20px;
+}
+
+/*Like button styling */
+.like-btn{
+  margin-left:320px;
+  font-size:30px;
+}
+.search-form {
+display: flex;
+justify-content: center; /* Adjust as needed */
+}
+
+.search-bar {
+position: relative;
+}
+
+.search-input {
+margin-top:11px;  
+padding:5px;  
+width:300px;
+border: none;
+border-radius:10px;
+font-size:20px;
+}
+
+.search-input:focus::placeholder {
+color: transparent;
+}
+.search-input:not(:placeholder-shown) + .search-button {
+display: none;
+}
+
+.search-button {
+position: absolute;
+right: 0;
+background-color: transparent;
+border: none;
+margin-top:17px;
+}
+
+.fa-search {
+font-size:20px;
+}
+
+
+.post-section {
+  margin: 0 auto;
+  padding: 0 calc((100vw *2) / 100);
+}
+
+.post {
+  margin-bottom: calc((100vw *1) / 100);
+  border: 1px solid #ddd;
+  padding: calc((100vw *1) / 100);
+  border-radius: 5px;
+  width:50%;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: calc((100vw *2) / 100);
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+}
+main .circle{
+  margin-left:10px;
+  
+}
+header .circle{
+  width:50px;
+  height:50px;
+  margin-top:5px;
+}
+
+ .about{
+  margin-top:-10px;
+  margin-left:400px;
+  word-wrap: break-word;
+  width:100%;
+  max-width:640px;
+  font-size:20px;/* Adjust as needed */
+  
+} 
+.circle {
+  width:30px;
+  height: 30px;
+  border-radius:70%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#logout{
+  margin-left:calc((100vw *2) / 100);
+  border:none;
+  border-radius:calc((100vw *2) / 100);
+}
+#logout:hover{
+  background-color:red;
+  color:blue;
+}
+
+/* Adjust the post by and post by image */
+.image-container {
+  display: inline-flex;
+  align-items: center;
+  margin-left:320px;
+  padding-top: 10px;
+
+}
+
+.image-text {
+  /* Adjust the margin as needed */
+  font-size:25px;
+}
+
+.hy{
+  margin-top:calc((100vw *10) / 100);
+}
+.loading {
+          filter: blur(15px); /* Apply the blur effect */
+          transition: filter 0.3s ease-in-out; /* Add a smooth transition */
+        } 
+button{
+  border:None;
+  background-color:transparent;
+} 

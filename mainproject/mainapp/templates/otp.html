@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otp</title>
+    <link rel='stylesheet' href="{% static 'cssfile/otp.css' %}">
+
+</head>
+
+<body>
+  <div class="container">
+    <h2>Submit OTP</h2>
+    {%for message in messages%}
+    <h2>{{message}}</h2>
+    {%endfor%}
+
+    <form action="" method="post">
+      {%csrf_token%}
+      <div class="form-group">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" placeholder="Enter your OTP" required>
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
