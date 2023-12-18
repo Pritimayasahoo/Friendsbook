@@ -211,13 +211,15 @@ header .circle{
 
 
 #logout{
-  margin-left:calc((100vw *2) / 100);
+  margin-top:10px;
+  margin-left:3px;
+  padding-top:7px;
   border:none;
-  border-radius:calc((100vw *2) / 100);
+  border-radius:5px;
 }
 #logout:hover{
   background-color:red;
-  color:blue;
+  color:white;
 }
 
 /* Adjust the post by and post by image */

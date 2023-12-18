@@ -8,22 +8,24 @@ header,
 footer {
   position: fixed;
   left: 0;
-  width: 100%;
-  background-color: #f5f5f5;
+  width:100%;
+  background-color:lightgray;
   /* Other styles for the fixed header/footer */
-}
-
-header {
-  top: 0;
 }
 
 footer {
   bottom: 0;
 }
 
+.pic{
+  margin-left:0px;
+  padding-right:5px;
+  margin-top:-8px;
+}
+
 main {
-  padding-top: calc((100vw *2) / 100); /* Adjust the top padding to accommodate the fixed header */
-  padding-bottom:calc((100vw *2) / 100); /* Adjust the bottom padding to accommodate the fixed footer */
+  padding-top:0px; /* Adjust the top padding to accommodate the fixed header */
+  padding-bottom:50px; /* Adjust the bottom padding to accommodate the fixed footer */
   overflow-y: scroll;
   /* Other styles for the scrollable content */
 }
@@ -31,14 +33,14 @@ main {
 /* Additional styles for the images or content within the main section */
 main img {
   display: block;
-  margin: calc((100vw *2) / 100) auto; /* Adjust the margin as desired */
+  margin-left:350px; /* Adjust the margin as desired */
 }
 
 header nav, footer nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: calc((100vw *10) / 100); /* Adjust the height as desired */
+  height:50px; /* Adjust the height as desired */
 }
 .comment-icon {
   margin-bottom: 5px; /* Adjust the spacing between the icon and text */
@@ -48,20 +50,13 @@ header nav, footer nav {
   font-size: 14px; /* Adjust the font size as needed */
 }
 
-/* Media query for mobile devices */
-@media (max-width:800px) {
-  main img {
-      width: 100%;
-      height: auto;
-      
-  }
-
-}
 /* Remove underline from anchor tags */
 a {
-text-decoration: none;
-}
-
+  text-decoration: none;
+  display: inline-block;
+  text-decoration: none;
+  }
+  
 /* Style for the buttons */
 .btn-home,
 .btn-post,
@@ -74,56 +69,42 @@ color: brown; /* Adjust the color as needed */
 }
 
 /* Style for the labels */
-.btn-label {
-margin-top:calc((100vw *1) / 100); /* Adjust the spacing between the logo and label */
-}
+
 
 header {
 display: flex;
 align-items: center;
+padding:12px;
+margin-top:-9px;
+height:30px
 }
 
-.profile-pic {
-width: 60px;
-height: 60px;
-border-radius: 50%;
-overflow: hidden;
-background-color: #ccc; /* Set a background color if the image is not available */
-margin-right: 10px; /* Add some spacing between the image and other elements */
-}
 
-.profile-pic img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
 
-/* Style the link as needed */
-a {
-display: inline-block;
-text-decoration: none;
-}
+/*Comment button styling */
 .comment-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: calc((100vw *1) / 100);
+  float: right;
+  margin-right:320px;
   border: none;
   background-color:None; /* Adjust the background color as needed */
   color:Blue; /* Adjust the text color as needed */
-  font-size: calc((100vw *5) / 100); 
-  margin-left:calc((100vw *78) / 100);/* Adjust the font size as needed */
+  font-size:30px; 
+ 
 }
 
-/* Media query for screen size below 700px */
-@media (max-width: 700px) {
-.profile-pic {
-width: 40px; /* Adjust the size for smaller screens */
-height: 40px;
-}
+/*Like letter styling*/
+#likes{
+  margin-left:320px;
+  margin-top:0px;
+  margin-bottom: 0px;
+  font-size:20px;
 }
 
+/*Like button styling */
+.like-btn{
+  margin-left:320px;
+  font-size:30px;
+}
 .search-form {
 display: flex;
 justify-content: center; /* Adjust as needed */
@@ -134,9 +115,12 @@ position: relative;
 }
 
 .search-input {
-padding: calc((100vw *2) / 100) calc((100vw *2) / 100) calc((100vw *2) / 100) calc((100vw *2) / 100); /* Adjust the padding as needed */
+margin-top:11px;  
+padding:5px;  
+width:300px;
 border: none;
-border-radius: calc((100vw *2) / 100);
+border-radius:10px;
+font-size:20px;
 }
 
 .search-input:focus::placeholder {
@@ -151,11 +135,11 @@ position: absolute;
 right: 0;
 background-color: transparent;
 border: none;
-padding: calc((100vw *2) / 100);
+margin-top:17px;
 }
 
 .fa-search {
-font-size: calc((100vw *2) / 100);
+font-size:20px;
 }
 
 
@@ -169,6 +153,7 @@ font-size: calc((100vw *2) / 100);
   border: 1px solid #ddd;
   padding: calc((100vw *1) / 100);
   border-radius: 5px;
+  width:50%;
 }
 
 .user-info {
@@ -194,199 +179,63 @@ font-size: calc((100vw *2) / 100);
   display: flex;
   align-items: center;
 }
-
-
-header{
-  padding:calc((100vw *2) / 100);
-}
 main .circle{
-  margin-left:calc((100vw *2) / 100);
-  margin-bottom:0px;
+  margin-left:10px;
   
 }
-.like-me .thumbs-up {
-  font-size: calc((100vw *2) / 100); /* Adjust the size as needed */
-  margin-left:calc((100vw *2) / 100);
+header .circle{
+  width:50px;
+  height:50px;
+  margin-top:5px;
 }
-#likes{
-  margin-left:calc((100vw *2) / 100);
-}
- #about{
-  margin-top:calc((100vw *2) / 100);
-  margin-left:calc((100vw *1) / 100);
-  margin-right:calc((100vw *1) / 100);
-  padding-left:calc((100vw *2) / 100);
+
+ .about{
+  margin-top:-10px;
+  margin-left:400px;
   word-wrap: break-word;
-  width:95%;
-  max-width: calc((100vw *120) / 100);
-  font-size:calc((100vw *1) / 100);/* Adjust as needed */
+  width:100%;
+  max-width:640px;
+  font-size:20px;/* Adjust as needed */
   
 } 
 .circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
+  width:30px;
+  height: 30px;
+  border-radius:70%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-/* Media queries */
-@media (max-width: 1000px) {
-  .post-section {
-    padding: 0;
-  }
-
-  .profile-picture {
-    width: 40px;
-    height: 20px;
-    margin-right: 5px;
-  }
-}
-
-.circle {
-  width: calc((100vw *13) / 100);
-  height: calc((100vw *13) / 100);
-}
-
-.circle img{
-  width: 100px;
-  max-height: 100%;
-  object-fit: cover;
-  justify-content: center;
-  align-items: center;
-  margin-left:90px;
-
-}
 
 
-main {
-  padding-top:calc((100vw *2) / 100);
-}
+
 #logout{
-  margin-left:calc((100vw *2) / 100);
+  margin-top:10px;
+  margin-left:3px;
+  padding-top:7px;
   border:none;
-  border-radius:calc((100vw *2) / 100);
+  border-radius:5px;
 }
 #logout:hover{
   background-color:red;
-  color:blue;
+  color:white;
 }
 
-@media (max-width:1000px) {
-  .post-section {
-    max-width: 900px; /* Adjust as needed for larger screens */
-  }
-  .post {
-    width:calc((100vw *95) / 100);
-    padding-left:calc((100vw *1) / 100);
-  }
-  main {
-    padding-top:calc((100vw *3) / 100);
-  }
-  body {
-    touch-action: pan-y;
-    user-select: none;
-    -ms-content-zooming: none;
-    -ms-touch-action: pan-y;
-    -ms-user-select: none;
-    -ms-touch-select: none;
-    zoom: reset;
-    zoom: 1.0;
-    max-zoom: 1.0;
-    min-zoom: 1.0;
-  }
-  header{
-    padding:calc((100vw *2) / 100);
-    padding-top:calc((100vw *2) / 100);
-  }
-  .space{
-         
-         max-width:calc((100vw *100) / 100);
-         padding:calc((100vw *2) / 100);
-         padding-right:calc((100vw *20) / 100);
-        
-        
-  }
-  .search-button{
-    padding-top:calc((100vw *2) / 100);
-    font-size: calc((100vw *2) / 100); 
-  }
-  .search-bar{
-    margin-top:calc((100vw *2) / 100);
-    margin-bottom:calc((100vw *2) / 100);
-    margin-left:calc((100vw *2) / 100);
-    padding-left:calc((100vw *1) / 100);
-    
-  }
-  .search-input{
-       width: calc((100vw *20) / 100); /* Adjust the width as needed */
-       height: calc((100vw *2) / 100); /* Adjust the height as needed */
-       font-size: calc((100vw *2) / 100); /* Adjust the font size as needed */
-       padding-left:calc((100vw *100) / 100); 
-       
-  }
-  .like-me .thumbs-up {
-    font-size: calc((100vw *7) / 100); /* Adjust the size as needed */
-    margin-left:calc((100vw *2) / 100);
-    
-  }
-  #likes{
-    margin-left:calc((100vw *2) / 100);
-    font-size:calc((100vw *2) / 100);
-   
-  }
-  .btn-home i,
-  .btn-post i,
-  .btn-notification i {
-    font-size: calc((100vw *4) / 100); /* Adjust the size as needed */
-  }
-  #logout{
-    margin-left:calc((100vw *23) / 100);
-    margin-top:calc((100vw *2) / 100);
-    padding-top:calc((100vw *2) / 100);
-    padding-left:calc((100vw *4) / 100);
-    padding-right:calc((100vw *4) / 100);
-    border-radius:calc((100vw *1) / 100);
-    background-color:lightgrey;
-    border:none;
-    font-size:calc((100vw *3) / 100);
-
-  }
-  #a-logout:hover{
-    background-color:red;
-  }
-  .comment-icon {
-  margin-bottom:calc((100vw *1) / 100); /* Adjust the spacing between the icon and text */
-}
-
-.comment-text {
-  font-size:calc((100vw *4) / 100); /* Adjust the font size as needed */
-}
-
-}
+/* Adjust the post by and post by image */
 .image-container {
   display: inline-flex;
   align-items: center;
-  margin-top:calc((100vw *2) / 100);
+  margin-left:320px;
+  padding-top: 10px;
 
 }
 
 .image-text {
-  margin-left: calc((100vw *2) / 100);
-  margin-top:calc((100vw *2) / 100);/* Adjust the margin as needed */
-  font-size:calc((100vw *4) / 100);
+  /* Adjust the margin as needed */
+  font-size:25px;
 }
-.image-container .circle{
-  display: inline-flex;
-  align-items: center;
-  margin-left:calc((100vw *2) / 100);
-}
-.image-container img {
-  width: 100%; /* Set a fixed width for all images */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensure block-level display */
-}
+
 .hy{
   margin-top:calc((100vw *10) / 100);
 }
@@ -398,8 +247,3 @@ button{
   border:None;
   background-color:transparent;
 } 
-#likes{
-    font-size:calc((100vw *2) / 100);
-    margin-top:-100px;
-    
-}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <link rel='stylesheet' href="{% static 'cssfile/owneditprofile.css' %}">
+    <script defer src="{% static 'jsfile/owneditprofile.js' %}"></script>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-image">
+        <img src="{{profile.profileimage.url}}" alt="Profile Image">
+      </div>
+      <div class="follow-container">
+             {%if number == 0%}
+             <span class="follower-count">NO FOLLOWERS</span>
+             {%elif number == 1%}
+             <span class="follower-count">1 FOLLOWER</span>
+             {%else%}
+             <span class="follower-count">{{number}} FOLLOWERS</span>
+             {%endif%}
+             <button class="follow-button" onclick="window.location.href='/profile/'">EDIT PROFILE</button>     
+      </div>
+    </div>
+    <div class="joined-date">Joined: {{profile.user_create|date:"F j Y"}}</div>
+  </div>
+  <h1>Image Gallery</h1>
+  <div class="gallery">
+    {%for post in posts%}
+    <img width="700" src="{{post.my_post.url}}"  data-postid="{{post.id}}"  onclick="showConfirmation(event)">
+    {%endfor%}
+  </div>
+
+  <div id="confirmationBox" class="hidden">
+    <h2>Delete Photo</h2>
+    <p id='m2'>Do you want to delete this photo?</p>
+    <button class="bt" onclick="deletePhoto()">Yes</button>
+    <button class="bt" onclick="closeConfirmation()">No</button>
+  </div>
+  
+  <div id="overlay" onclick="closeConfirmation()"></div>
+  
+</body>
+</html>

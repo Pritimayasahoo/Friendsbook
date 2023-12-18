@@ -9,6 +9,7 @@ import json
 import email.utils as email_utils
 from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse,HttpResponseNotFound
+from django.db.models import Q
 
 # Create your views here.
 
@@ -19,7 +20,9 @@ def page_not_found(request,exception):
 
 @login_required(login_url='/loguser/')
 def home(request):
-    all_post=Post.objects.all()
+    all_post=Post.objects.filter(postshow=True).all()
+    all_post = list(all_post)
+    random.shuffle(all_post)
     user_profile=Profile.objects.filter(user=request.user).first()
     return render(request,'home.html',{'profile':user_profile,'name':request.user,'all_post':all_post})
 
@@ -39,11 +42,10 @@ def send_otp(name,email,otp):
        "authkey": "396373AgC8FX3CzNwJ645a623bP1"
         }
     response = requests.post(url, data=payload, headers=headers)
-    print(response)
     if response.status_code == 200:
-       print(response.text)
+       pass
     else :
-       print(response.text)
+       pass
     return None
 
 def signup(request):
@@ -59,13 +61,11 @@ def signup(request):
         if user:
             messages.info(request,'THIS USER IS ALREADY EXIST')
             return redirect('/signup/')
-        request.session['email'] = email
+        request.session['email'] =email
         request.session['password'] = password
         otp=random.randint(100000,999999)
-        print(otp)
         send_otp(name,email,otp)
         myotp=OTP.objects.filter(email=email).first()
-        print(myotp)
         if myotp:
             myotp.otp=otp
             myotp.save()
@@ -82,25 +82,16 @@ def loguser(request):
         email = parsed_email.lower()
 
         password=request.POST['password']
-        print(email)
         user=CustomUser.objects.filter(email=email).first()
-        print('no')
         if user and check_password(password, user.password):
-            print('hy ok')
             request.session['email'] = email
             request.session['password'] = password
             otp=random.randint(100000,999999)
-            print(otp)
             otp_object=OTP.objects.filter(email=email).first()
-            print('noooooo')
             otp_object.otp=otp
-            print('mgkgkg')
             otp_object.save()
-            print('helo okkk')
             send_otp('chiku',email,otp)
-            print('otp')
             return redirect('/otp/')
-        print('hy')
         messages.info(request,'PASSWORD OR EMAIL ID IS WRONG')
         return redirect('loguser')
     return render(request,'login.html')
@@ -110,7 +101,6 @@ def otp_check(request):
     if request.method=='POST':
         otp=request.POST['otp']
         mail=request.session.get('email')
-        print('okkkk')
         otp_object=OTP.objects.filter(email=mail).first()
         if otp_object:
             if otp_object.otp==otp:
@@ -127,7 +117,6 @@ def otp_check(request):
                    otp_object.save()
                    my_profile=Profile.objects.create(user=my_user,id=my_user.id)
                    my_user=auth.authenticate(email=mymail,password=password)
-                   print('nhl')
                    if my_user:
                       auth.login(request,my_user)
                       return redirect('profile')
@@ -136,20 +125,17 @@ def otp_check(request):
                 return redirect('otp')
         messages.info(request,'MAIL IS INCORRECT')
         return redirect('otp')
-
+ 
     return render(request,'otp.html')    
 
 @login_required(login_url='/loguser/')
 def create_profile(request):
     myprofile=Profile.objects.filter(user=request.user).first()
     if request.method=='POST':
-      print('hyyy')
       if request.FILES.get('compressed_image'):
         image=request.FILES.get('compressed_image')
-        print('image load')
       else:
         image=myprofile.profileimage  
-        print('image not load')
       name=request.POST['name']  
       about=request.POST['about']
       school=request.POST['school']
@@ -158,7 +144,6 @@ def create_profile(request):
       myprofile.about=about
       myprofile.current_study=school
       myprofile.save()
-      print(' image created succefully')
       return redirect('/')
     return render(request, 'ownprofile.html',{'myprofile':myprofile})
   
@@ -166,6 +151,46 @@ def create_profile(request):
 def logout(request): 
         auth.logout(request)
         return redirect('/loguser/')
+
+#forgot otp
+def forgot_otp_check(request):
+    if request.method=='POST':
+        otp=request.POST['otp']
+        password=request.POST['password'] 
+        mail=request.session.get('email')
+        otp_object=OTP.objects.filter(email=mail).first()
+        if otp_object:
+            if otp_object.otp==otp:
+                user=CustomUser.objects.filter(email=mail).first()
+                user.set_password(password)
+                user.save()
+                my_user=auth.authenticate(email=mail,password=password)
+                auth.login(request,my_user)
+                return redirect('/')
+            else:
+                messages.info(request,'OTP NOT MATCHED TRY AGAIN')
+                return redirect('forgot_otp')
+    return render(request,'forgototp.html')
+
+#for got password
+def forgotpassword(request):
+    if request.method=='POST':
+        email=request.POST["email"]
+        parsed_email = email_utils.parseaddr(email)[1]
+        email = parsed_email.lower()
+        request.session['email'] =email
+        user=CustomUser.objects.filter(email=email).first()
+        if user:
+            otp=random.randint(100000,999999)
+            otp_object=OTP.objects.filter(email=email).first()
+            otp_object.otp=otp
+            otp_object.save()
+            send_otp('chiku',email,otp)
+            return redirect('forgot_otp')
+        else:
+           messages.info(request,'User Not Exist')
+           return redirect('forgot')
+    return render(request,'forgotpassword.html')    
 
 @login_required(login_url='/loguser/')        
 def my_post(request):
@@ -197,21 +222,16 @@ def view_profile(request,name):
 @login_required(login_url='/loguser')
 def Follow(request):
     current_user=request.user
-    print('okk')
     user_id=request.GET.get('myuser')
-    print(user_id)
     user=CustomUser.objects.filter(id=user_id).first()
     user_profile=Profile.objects.filter(user=user).first()
     #user_name=user_profile.name
     follower_exist=Followerscount.objects.filter(follower=current_user,user=user).first()
-    print(follower_exist,'no')
     if follower_exist:   
         follower_exist.delete()
-        print('sucess')
         return redirect(f'/prof/?myuser={user_id}')
     else:
         Followerscount.objects.create(follower=current_user,user=user)
-        print('done')
         return redirect(f'/prof/?myuser={user_id}')
     
 @login_required(login_url='/loguser')
@@ -229,12 +249,10 @@ def like_check(request):
         like.delete()
         current_post.no_of_like-=1
         current_post.save()
-        print('like remove')
     else:
         new_like=Like_post.objects.create(post_id=like_id,like_user=user)
         current_post.no_of_like+=1
         current_post.save()
-        print('like')
     data = {
         'likes': current_post.no_of_like
     }
@@ -243,8 +261,6 @@ def like_check(request):
 #Add comments
 @login_required(login_url='/loguser')     
 def Showcomment(request,post_id):
-        post_id=post_id
-        print(post_id)
         user=request.user
         current_post=Post.objects.filter(id=post_id).first()
         allcomments=Comment.objects.filter(comment_post=current_post)
@@ -262,18 +278,14 @@ def Showcomment(request,post_id):
 @login_required(login_url='/loguser') 
 def Createcomment(request):
     if request.method=="POST":
-        print("start")
         comment=request.POST['comment']
         post_id=request.POST['id']
-        print(comment,post_id)
         user=request.user
         user_profile=Profile.objects.filter(user=user).first()
         current_post=Post.objects.filter(id=post_id).first()
-        print(user_profile,current_post,'how')
         Comment.objects.create(text=comment,comment_by=user_profile,comment_post=current_post)
         user_profile.comment_by_user+=1
         user_profile.save()
-        print("sucess") 
         return JsonResponse({'success': True}) 
 
     
@@ -281,7 +293,6 @@ def Createcomment(request):
 def Search(request):
     if request.method=='POST':
         name=request.POST['searchname']
-        print(name)
         users=Profile.objects.filter(name__icontains=name).all()
         return render(request,'search.html',{'profiles':users})
     else:
@@ -290,20 +301,14 @@ def Search(request):
 @login_required(login_url='/loguser')    
 def Own_profile(request):
     user_id=request.GET.get('myuser')
-    print(user_id)
-    print(678)
     uy=CustomUser.objects.filter(id=user_id).first()
-    print(uy)
     user_profile=Profile.objects.filter(user=uy).first()
     my_user=request.user
-    print(my_user)
-    print('neo')
     #person_profile=Profile.objects.filter(name=n).first()
     person_obj=user_profile.user
     follower_exist=Followerscount.objects.filter(follower=my_user,user=person_obj).first()
     allfollow=Followerscount.objects.filter(user=person_obj).all()
     allfollow=len(allfollow)
-    print(allfollow)
     if follower_exist:
         button='UNFOLLOW'
     else:
@@ -318,8 +323,32 @@ def Own_profile(request):
         'user':uy
 
     }    
-    print('up to')
     return render(request,'new_profile.html',context)
+#Show your Own profile
+@login_required(login_url='/loguser') 
+def Own_edit_profile(request):
+    uy=request.user
+    user_profile=Profile.objects.filter(user=uy).first()
+    allfollow=Followerscount.objects.filter(user=uy)
+    allfollow=len(allfollow)
+    posts=Post.objects.filter(Q(post_by=uy) & Q(postshow=True))
+    context={
+        'posts':posts,
+        'number':allfollow,
+        'profile':user_profile,
+    }    
+    return render(request,'owneditprofile.html',context)
+#Delete a picture
+@login_required(login_url='/loguser') 
+def Deletepic(request):
+    if request.GET.get('value'):
+        ownuser=request.user
+        value = request.GET.get('value')
+        deletephoto=Post.objects.filter(Q(id=value) & Q(post_by=ownuser)).first()
+        deletephoto.postshow=False
+        deletephoto.save()
+        return redirect('/')   
+        
 
 #handle compressed image
 @login_required(login_url='/loguser')    
@@ -327,8 +356,6 @@ def handle_compressed_image(request):
     if request.method == "POST":
         current_profile=Profile.objects.filter(user=request.user).first()
         text_data = request.POST.get("text_data")
-        #print(text_data)
-        #print('jio')
         image_data = request.FILES.get("image_data")
         Post.objects.create(my_post=image_data,post_by=request.user,poster_profile=current_profile,about=text_data)
         return JsonResponse({"message":"Success done"})

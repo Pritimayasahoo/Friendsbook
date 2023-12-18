@@ -17,7 +17,9 @@ urlpatterns = [
     path('showcomment/<str:post_id>',views.Showcomment,name='showcomment'),
     path('createcomment/',views.Createcomment,name='createcomment'),
     path('save/',views.handle_compressed_image,name='save_post'),
-
-
+    path('editprof/',views.Own_edit_profile,name='own_edit_profile'),
+    path('deletepic/',views.Deletepic,name='Deletepic'),
+    path('forgot/',views.forgotpassword,name='forgot'),
+    path('forgot_otp/',views.forgot_otp_check,name='forgot_otp'),
 ]
 

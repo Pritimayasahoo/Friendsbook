@@ -49,4 +49,10 @@ button {
 }
 h5 {
     color:red;
+    padding-left:55px;
+    font-size:17px;
   }
+
+#forgot{
+    margin-left:140px; 
+}  

@@ -9,11 +9,11 @@
 
 </head>
 <body>
-    {% for message in messages %}
-            <h5>{{message}}</h5>
-            {% endfor %}
 	<div class="container">
 			<form class="login-form" action="" method="POST">
+			{% for message in messages %}
+            <h5>{{message}}</h5>
+            {% endfor %}
 			{% csrf_token %}
 			<h2>Login</h2>
 			<div class="form-group">
@@ -26,6 +26,7 @@
 				<button type="submit">Login</button>
 			</div>
 			<p class="signup-link">Don't have an account? <a href="/signup/">Sign up</a></p>
+			<a id='forgot' href='/forgot/'>Forgot password</a>
 		</form>
 	</div>
 </body>

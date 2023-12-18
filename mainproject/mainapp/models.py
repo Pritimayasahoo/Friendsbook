@@ -54,6 +54,7 @@ class Post(models.Model):
     no_of_viewer=models.IntegerField(default=0)
     caption=models.CharField(blank=True,max_length=150)
     about=models.TextField(blank=True)
+    postshow= models.BooleanField(default=True, null=False)
 
     def __str__(self):
         return self.my_post.name

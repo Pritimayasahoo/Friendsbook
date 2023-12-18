@@ -1,4 +1,7 @@
 {%for profile in profiles%}
-<img width='300' height='400' src='{{profile.profileimage.url}}'>
-<p>'{{profile.name}}'</p>
+<img width='200' src='{{profile.profileimage.url}}'>
+<br>
+<a href="/prof/?myuser={{profile.user.id}}">{{profile.name}}</a>
+<br>
+<br>
 {%endfor%}
