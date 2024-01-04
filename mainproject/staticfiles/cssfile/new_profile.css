@@ -15,7 +15,6 @@ body {
 
 .profile-header {
   position: relative;
-  background-image: url("{{profile.backgroundimage.url}}");
   background-size: cover;
   background-position: center;
   height: 300px;
@@ -69,13 +68,7 @@ body {
   
 }
 
-.joined-date {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #555;
-  padding-top:30px;
-  padding-right:100px;
-}
+
 .seting-button {
   background-color:brown;
   color:white;
@@ -90,14 +83,15 @@ body {
 
 }
 
+h3{
+  margin-top: 10px;
+  margin-left:140px;
+  font-size: 27px;
+  color:brown;
+  margin-bottom:0px;
+}
 
-/* Mobile Styles */
-@media (max-width: 1000px) {
-  .profile-container {
-    width: 150%;
-    padding: 10px;
-    margin-top:0px;
-    margin-right:100px;
-    width:100%;
-  }
+h4{
+  font-size: 17px; ;
+  margin-bottom: 0px;
 }

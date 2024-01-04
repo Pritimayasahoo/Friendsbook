@@ -5,37 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Own profile</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel='stylesheet' href="{% static 'cssfile/ownprofile.css' %}">
+    <script defer src="https://unpkg.com/image-compressor.js/dist/image-compressor.min.js"></script>
     <script defer src="{% static 'jsfile/ownprofile.js' %}"></script>
 </head>
 
 </head>
 <body>
-  <div class="profile-form">
-    <h2>Create Profile</h2>
-    <form id="profileForm" method="POST" action="/profile/" enctype="multipart/form-data">
-      {% csrf_token %}
+  <div class="container">
+    <div class="left-side">
+      <!----profile pic upload area-->
+      <input type="file" name="image_data" id="profile-file" accept="image/*" hidden>
+      <div class="img-area" data-img="">
+        <i class='bx bxs-cloud-upload icon'></i>
+      </div>  
+      <button class="select-image" id="pic-btn" disabled>Select Profile Pic</button>
+      
+      <!---cover pic upload area-->
+      <input type="file" name="image_data" id="cover-file" accept="image/*" hidden>
+      <div class="cover-pic" data-img="">
+        <i class='bx bxs-cloud-upload icon'></i>
+      </div>  
+      <button class="cover-pic-button" id="cover-btn" disabled>Select Cover Pic</button>
+    </div>  
+
+    <!--Other extra information-->>
+    <div class="information">
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required  value={{myprofile.name}}>
-      
-      <label for="profilepic">Profile Picture:</label>
-      <input type="file" id="profilepic" name="loadimage" accept=".jpg, .jpeg, .png">
-      
-
-      
-      <div id="wrapper"></div>
-      
+      <input type="text" id="name" name="name" placeholder="Name" value="{{name}}">
+      <br>
       <label for="about">About:</label>
-      <textarea id="about" name="about" value={{myprofile.about}} rows="4" ></textarea>
-      
-      <label for="school">Currently School Name:</label>
-      <input type="text" id="school" name="school" value={{myprofile.current_study}}>
-      
-      <input type="submit" value="Create">
-      
-      <div class="error-message" id="error-message"></div>
-    </form>
-  </div>
-
+      <input type="text" id="about" name="about" placeholder="About" value="{{about}}">
+      <br>
+      <label for="school">School:</label>
+      <input type="text" id="school" name="school" placeholder="School" value="{{school}}">
+      <button class="final-submit" id="submit-btn" disabled>Submit Profile</button>
+    </div>  
+ </div>
 </body>
 </html>
+

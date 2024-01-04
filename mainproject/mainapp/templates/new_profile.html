@@ -6,135 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New profile</title>
     <link rel='stylesheet' href="{% static 'cssfile/new_profile.css' %}">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-      }
-    
-      .profile-container {
-        width: 80%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 10px;
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-    
-      .profile-header {
-        position: relative;
-        background-image: url("{{profile.backgroundimage.url}}");
-        background-size: cover;
-        background-position: center;
-        height: 300px;
-        display: flex;
-        justify-content: flex-end; /* Aligns the follow button to the right */
-      }
-    
-      .profile-image {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        transform: translate(0, 50%);
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 3px solid #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-    
-      .profile-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    
-      .follow-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin-top: 10px; /* Adjust this value to control the spacing between the background image and the follow button */
-      }
-    
-      .follow-button {
-        background-color: #f5deb3;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-bottom: 5px;
-        background-color:magenta;
-    
-      }
-    
-      .follower-count {
-        font-size: 16px;
-        color: #555;
-        margin-top:295px;
-        
-      }
-    
-      .joined-date {
-        margin-top: 20px;
-        font-size: 16px;
-        color: #555;
-        padding-top:30px;
-        padding-right:100px;
-      }
-      .seting-button {
-        background-color:brown;
-        color:white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-bottom: 5px;
-        background-color:magenta;
-        margin-top:320px;
-    
-      }
-    
-    
-      /* Mobile Styles */
-      @media (max-width: 1000px) {
-        .profile-container {
-          width: 150%;
-          padding: 10px;
-          margin-top:0px;
-          margin-right:100px;
-          width:100%;
-        }
-      }
-    </style>
 
 </head>
 
 <body>
   <div class="profile-container">
-    <div class="profile-header">
+    <div class="profile-header" style="background-image: url('{{ profile.backgroundimage.url }}');">
       <div class="profile-image">
         <img src="{{profile.profileimage.url}}" alt="Profile Image">
       </div>
       <div class="follow-container">
-        {%if myuser == user %}
-        <button class="seting-button" onclick="window.location.href='profile/'">EDIT PROFILE</button>
+        {%if number == 0%}
+        <span class="follower-count">NO FOLLOWERS</span>
+        {%elif number == 1%}
+        <span class="follower-count">1 FOLLOWER</span>
         {%else%}
-             {%if number == 0%}
-             <span class="follower-count">NO FOLLOWERS</span>
-             {%elif number == 1%}
-             <span class="follower-count">1 FOLLOWER</span>
-             {%else%}
-             <span class="follower-count">{{number}} FOLLOWERS</span>
-             {%endif%}
-             <button class="follow-button" onclick="window.location.href='/follow/?myuser={{person_id}}'">{{button}}</button>                                           
-        {%endif%}     
+        <span class="follower-count">{{number}} FOLLOWERS</span>
+        {%endif%} 
+
+        {%if myuser == user%}
+          <button class="follow-button" onclick="window.location.href='/profile/'">{{button}}</button>
+        {%else%}
+          <button class="follow-button" onclick="window.location.href='/follow/?myuser={{person_id}}'">{{button}}</button>                                           
+        {%endif%}  
       </div>
     </div>
+    <h3>{{profile.name}}</h3>
+    <h4>cool guy who is i  or who</h4>
     <div class="joined-date">Joined: {{profile.user_create|date:"F j Y"}}</div>
   </div>
 </body>

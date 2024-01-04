@@ -22,6 +22,9 @@ class OTP(models.Model):
     otp=models.CharField(max_length=9)
     email = models.EmailField(unique=True)
     user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,blank=True,null=True,default=None)
+    #for 3 time attempts 
+    failed_attempts = models.IntegerField(default=0)
+    locked_until = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.email     
@@ -30,13 +33,13 @@ class Profile(models.Model):
     user=models.ForeignKey(CustomUser,on_delete=models.CASCADE)    
     id=models.UUIDField(primary_key=True)
     user_create=models.DateTimeField(default=datetime.now)
-    profileimage=models.ImageField(upload_to='profilepic',default='default.jpg')
+    profileimage=models.ImageField(upload_to='profilepic',default='default.png')
     name=models.CharField(max_length=50,blank=True)
     about=models.TextField(blank=True)
     current_study=models.CharField(max_length=50,blank=True)
     self_learner = models.BooleanField(default=False)
     current_teach=models.CharField(max_length=50,blank=True)
-    backgroundimage=models.ImageField(upload_to='backgroundpic',default='default.jpg')
+    backgroundimage=models.ImageField(upload_to='backgroundpic',default='default_cover_img.png')
     no_of_followers=models.IntegerField(default=0)
     comment_by_user=models.IntegerField(default=0)
    

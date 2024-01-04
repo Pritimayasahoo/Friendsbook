@@ -1,38 +1,4 @@
-.gallery img {
-  margin-bottom: 10px;
-  margin-left:360px;
-  cursor: pointer;
-  
-}
-h1{
-  margin-left:590px;
-  color:green;
-}
-#confirmationBox {
-  position: absolute; /* Change position to absolute */
-  background-color: white;
-  padding: 20px;
-  margin:10px;
-  border: 1px solid #ccc;
-  text-align: center;
-  z-index: 2;
-  font-size:20px;
-}
-
-.hidden {
-  display: none;
-} 
-
-.bt{
-  font-size:25px;
-  border:none;
-  
- }
-
-#m2{
-  color:red;
-}
-
+/*profile box code*/
 
 body {
   margin: 0;
@@ -51,7 +17,6 @@ body {
 
 .profile-header {
   position: relative;
-  background-image: url("{{profile.backgroundimage.url}}");
   background-size: cover;
   background-position: center;
   height: 300px;
@@ -105,13 +70,7 @@ body {
   
 }
 
-.joined-date {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #555;
-  padding-top:30px;
-  padding-right:100px;
-}
+
 .seting-button {
   background-color:brown;
   color:white;
@@ -124,6 +83,55 @@ body {
   background-color:magenta;
   margin-top:320px;
 
+}
+
+h3{
+  margin-top: 10px;
+  margin-left:140px;
+  font-size: 27px;
+  color:brown;
+  margin-bottom:0px;
+}
+
+h4{
+  font-size: 17px; ;
+  margin-bottom: 0px;
+}
+
+/*delete box and gallery code*/
+.gallery img {
+  margin-bottom: 10px;
+  margin-left:360px;
+  cursor: pointer;
+  
+}
+h1{
+  margin-left:590px;
+  color:green;
+}
+#confirmationBox {
+  position: absolute; /* Change position to absolute */
+  background-color: white;
+  padding: 20px;
+  margin:10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  z-index: 2;
+  font-size:20px;
+}
+
+.hidden {
+  display: none;
+} 
+
+.bt{
+  font-size:25px;
+  border:none;
+  
+ }
+
+#m2{
+  color:red;
 }
 
 

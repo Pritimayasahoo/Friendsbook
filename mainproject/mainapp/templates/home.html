@@ -11,8 +11,34 @@
 <div class="container">
     <header>
       <div class="pic">
-        <a href='editprof/'><img class='circle' src="{{profile.profileimage.url}}" alt="Profile Picture"></a>
+        <img id="click-img" class='circle' src="{{profile.profileimage.url}}" alt="Profile Picture">
+      </div>
 
+
+      <div class="sub-menu-wrap" id="subMenu">
+        <div class="sub-menu">
+            <div class="user-info">
+              <img src="{{profile.profileimage.url}}" alt="Profile Picture">
+              <h3>{{profile.name}}</h3>
+            </div>
+            <hr>
+
+            <a href="editprof/" class="sub-menu-link">
+              <img src="{% static 'imagefile/profile.png' %}" alt="noimg">
+              <p>Own Profile</p>
+            </a>  
+
+            <a href="/profile/" class="sub-menu-link">
+              <img src="{% static 'imagefile/edit_profile.png' %}" alt="noimg">
+              <p>Edit Profile</p>
+            </a>  
+
+            <a href="/logout/" class="sub-menu-link">
+              <img src="{% static 'imagefile/logout.png' %}" alt="noimg">
+              <p>Logout</p>
+            </a>  
+
+        </div>    
       </div>
 
           <form id="like-url" class="search-form" action="search/" method="POST" data-post-url="{% url 'like' %}">
@@ -25,29 +51,56 @@
               <br>
               
             </div>
-            <a href='/logout/' id='logout'>LOGOUT</a>
           </form>
              
     </header>
-    <main>
-        <div class="hy">
+
+  <div class="main">
       {%for post in all_post reversed%}
-      <div class="image-container">
-        <a href="prof/?myuser={{post.post_by.id}}"><img class="circle" src="{{post.poster_profile.profileimage.url}}" alt="Image"></a>
-        <h1 class="image-text">Post by:-{{post.poster_profile.name}}</h1>
-      </div>  
-      <h2 class='about'>{{post.about}}</h2>
-        <img class='post lazy-image loading' src='' data-src='{{post.my_post.url}}'>
-        <a href='showcomment/{{post.id}}' class="comment-button">
-              <i class="fas fa-comment"></i>
-        </a>
-      
-      <p id="likes">LIKE: <span id="like-count-{{ post.id }}">{{ post.no_of_like }}</span></p>
-      <span class="thumbs-up like-me like-btn" data-post-id="{{ post.id }}">&#x1F44D;</span> 
-       <br>
-      {%endfor%}
+      <div class="post">
+        <div class="post-author">
+          <a href="prof/?myuser={{post.post_by.id}}"><img src="{{post.poster_profile.profileimage.url}}" alt="Image"></a>
+          <div>
+            <h1>{{post.poster_profile.name}}</h1>
+          </div>
+        </div>
+        <p>{{post.about}}</p>
+        <img class='lazy-image loading' src='' width="100%" data-src='{{post.my_post.url}}'>
+
+        <div class="post-status"> 
+
+          <div>
+            {% if post.no_of_like == 0 %}
+            <span class="likes" id="like-count-{{ post.id }}">No like</span>
+           {% elif post.no_of_like == 1 %}
+            <span class="likes" id="like-count-{{ post.id }}">1 like</span>
+           {% else %}
+            <span class="likes" id="like-count-{{ post.id }}">{{post.no_of_like}} likes</span>
+           {% endif %} 
+            <br>
+            <span class="thumbs-up like-me like-btn" data-post-id="{{ post.id }}">&#x1F44D;</span>   
+          </div>
+
+          <div class="comment">  
+            {% if post.no_of_coment == 0 %}
+            <span>No comment</span>
+           {% elif post.no_of_coment == 1 %}
+            <span>1 comment</span>
+           {% else %}
+            <span>{{post.no_of_coment}} comments</span>
+           {% endif %} 
+            <br>
+            <a href='showcomment/{{post.id}}' class="comment-button">
+            <i class="fas fa-comment"></i>
+            </a>
+          </div>  
+        </div>  
+        
+     
       </div>
-    </main>     
+
+      {%endfor%}
+  </div>    
     <footer>
         <nav>
            <!-- Home button -->

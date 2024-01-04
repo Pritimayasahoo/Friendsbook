@@ -3,20 +3,28 @@
 <head>
     {% load static %}
     <title>Post</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel='stylesheet' href="{% static 'cssfile/post.css' %}">
     <script defer src="https://unpkg.com/image-compressor.js/dist/image-compressor.min.js"></script>
     <script defer src="{% static 'jsfile/post.js' %}"></script>
-
+  
 </head>
 
 <body>
-  <input type="file" name="image_data" id="infile"  class="disabled" accept=".jpg, .jpeg, .png" disabled>
-  <div id="compressedImageContainer" class="image-container"> 
-  <img id="compressedImage" alt="Compressed Image" style="display: none;">
-  <br>
-  <input id="about" type="text" name="text_data" placeholder="About">
-  </div>
-  <button type="submit" id="submit">Submit</button>
+  <div class="container">
+    <input type="file" name="image_data" id="files" accept="image/*" hidden>
+    <div class="img-area" data-img="">
+      <i class='bx bxs-cloud-upload icon'></i>
+      <h3>Upload Image</h3>
+    </div> 
+    <input id="about" type="text" name="text_data" placeholder="About">
+    <button class="select-image" id="btn" disabled>Select Image</button>
+    <button id="submit" disabled>Submit</button>
+ </div>
+
+
 </body>
 </html>
+
+
 

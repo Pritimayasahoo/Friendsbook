@@ -14,7 +14,7 @@ footer {
 }
 
 footer {
-  bottom: 0;
+ bottom:0;
 }
 
 .pic{
@@ -23,18 +23,6 @@ footer {
   margin-top:-8px;
 }
 
-main {
-  padding-top:0px; /* Adjust the top padding to accommodate the fixed header */
-  padding-bottom:50px; /* Adjust the bottom padding to accommodate the fixed footer */
-  overflow-y: scroll;
-  /* Other styles for the scrollable content */
-}
-
-/* Additional styles for the images or content within the main section */
-main img {
-  display: block;
-  margin-left:350px; /* Adjust the margin as desired */
-}
 
 header nav, footer nav {
   display: flex;
@@ -42,13 +30,7 @@ header nav, footer nav {
   align-items: center;
   height:50px; /* Adjust the height as desired */
 }
-.comment-icon {
-  margin-bottom: 5px; /* Adjust the spacing between the icon and text */
-}
 
-.comment-text {
-  font-size: 14px; /* Adjust the font size as needed */
-}
 
 /* Remove underline from anchor tags */
 a {
@@ -82,28 +64,20 @@ height:30px
 
 
 /*Comment button styling */
-.comment-button {
-  float: right;
-  margin-right:320px;
+.comment a{
+  margin-left: 45px;
+  margin-top: 10px;
   border: none;
   background-color:None; /* Adjust the background color as needed */
   color:Blue; /* Adjust the text color as needed */
-  font-size:30px; 
+  font-size:20px; 
  
-}
-
-/*Like letter styling*/
-#likes{
-  margin-left:320px;
-  margin-top:0px;
-  margin-bottom: 0px;
-  font-size:20px;
 }
 
 /*Like button styling */
 .like-btn{
-  margin-left:320px;
-  font-size:30px;
+  cursor: pointer;
+  font-size:25px;
 }
 .search-form {
 display: flex;
@@ -149,11 +123,44 @@ font-size:20px;
 }
 
 .post {
-  margin-bottom: calc((100vw *1) / 100);
-  border: 1px solid #ddd;
-  padding: calc((100vw *1) / 100);
-  border-radius: 5px;
-  width:50%;
+  width: 450px;
+  background:wheat;
+  margin:0px 5px 5px 400px;/* top right bottom left */
+  padding:5px 50px 10px;
+  word-wrap: break-word;
+  border-radius: 10px;
+}
+
+.post-author{
+  display:flex;
+  align-items: flex-start;
+  margin-bottom:10px;
+}
+
+.post-author img{
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.post-author h1{
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.post p{
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.post-status{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
 }
 
 .user-info {
@@ -169,19 +176,15 @@ font-size:20px;
   margin-right: 10px;
 }
 
-.post-image {
-  width: 100%;
-  height: auto;
-  border-radius: calc((100vw *2) / 100);
-}
+
 
 .post-actions {
   display: flex;
   align-items: center;
 }
-main .circle{
-  margin-left:10px;
-  
+.main{
+  padding-top: 62px;
+  padding-bottom: 42px;
 }
 header .circle{
   width:50px;
@@ -247,3 +250,71 @@ button{
   border:None;
   background-color:transparent;
 } 
+
+.sub-menu-wrap{
+  position:absolute;
+  top: 100%;
+  left: 1%;
+  width:300px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+  
+}
+
+/*This class add by js to show the drop down menu*/
+.open-menu{
+  max-height: 400px;
+}
+.sub-menu{
+  background: cornflowerblue;
+  padding:20px;
+  margin:10px;
+  border-radius: 9px;
+}
+
+.user-info h2{
+  font-weight: 300;
+}
+
+.user-info img{
+   width: 65px;
+   height: 65px;
+   border-radius: 50%;
+   margin-right: 10px;
+}
+
+.sub-menu hr{
+  border:0;
+  width:100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+} 
+
+.sub-menu-link{
+  display:flex;
+  align-items:center;
+  text-decoration: none;
+  color:antiquewhite;
+  margin:12px 0;/*12 px top and bottom*/
+}
+
+.sub-menu-link p{
+  width: 100%;
+}
+
+.sub-menu-link img{
+  width:20px;
+  margin-right: 13px;
+  background: #e5e5e5;
+  border-radius:50%;
+  padding: 8px;
+}
+
+.sub-menu-link:hover p{
+  font-weight: 700;
+}
+
+#click-img:hover{
+   cursor: pointer;
+}

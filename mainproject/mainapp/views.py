@@ -10,6 +10,14 @@ import email.utils as email_utils
 from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse,HttpResponseNotFound
 from django.db.models import Q
+from django.utils import timezone
+from datetime import timedelta
+from django.conf import settings
+
+
+#Default images
+default_image = 'default.png'
+default_cover_image ='default_cover_img.png'
 
 # Create your views here.
 
@@ -54,15 +62,31 @@ def signup(request):
         #normalize email
         parsed_email = email_utils.parseaddr(email)[1]
         email = parsed_email.lower()
-
+        
+        #if this user is already blocked
+        otp_object=OTP.objects.filter(email=email).first()
+        if otp_object and otp_object.failed_attempts >= 3 and otp_object.locked_until > timezone.now():
+            messages.info(request,'Account Has Been locked For 24 hours')
+            return redirect('/signup/')
+        
         password=request.POST['password']
-        name='chiku'
+        password_again=request.POST['password-again']
+        name=request.POST['name']
+        if not email or not password or not name or not password_again:
+           messages.info(request,'Please fill all fields')
+           return redirect('/signup/')
+
+        if password!=password_again:
+            messages.info(request,'Password Not Matched')
+            return redirect('/signup/') 
+        
         user=CustomUser.objects.filter(email=email).first()
         if user:
             messages.info(request,'THIS USER IS ALREADY EXIST')
             return redirect('/signup/')
         request.session['email'] =email
         request.session['password'] = password
+        request.session['name']=name
         otp=random.randint(100000,999999)
         send_otp(name,email,otp)
         myotp=OTP.objects.filter(email=email).first()
@@ -80,6 +104,11 @@ def loguser(request):
         #normalize email
         parsed_email = email_utils.parseaddr(email)[1]
         email = parsed_email.lower()
+        #check if user is blocked for 24 hours
+        otp_object=OTP.objects.filter(email=email).first()
+        if otp_object and otp_object.failed_attempts >= 3 and otp_object.locked_until > timezone.now():
+            messages.info(request,'Account Has Been locked For 24 hours')
+            return redirect('/loguser/')
 
         password=request.POST['password']
         user=CustomUser.objects.filter(email=email).first()
@@ -102,6 +131,9 @@ def otp_check(request):
         otp=request.POST['otp']
         mail=request.session.get('email')
         otp_object=OTP.objects.filter(email=mail).first()
+        if otp_object and otp_object.failed_attempts >= 3 and otp_object.locked_until > timezone.now():
+            messages.info(request,'Account Has Been locked For 24 hours')
+            return redirect('otp')
         if otp_object:
             if otp_object.otp==otp:
                 password=request.session.get('password')
@@ -110,17 +142,44 @@ def otp_check(request):
                 if user:
                     my_user=auth.authenticate(email=mymail,password=password)
                     auth.login(request,my_user)
+                    #set otp attempts to 0
+                    otp_object.failed_attempts = 0
+                    otp_object.locked_until = None
+                    otp_object.save()
                     return redirect('/')
                 else:
                    my_user=CustomUser.objects.create_user(email=mymail,password=password)
                    otp_object.user=my_user
+                   #set otp attempts to 0
+                   otp_object.failed_attempts = 0
+                   otp_object.locked_until = None
                    otp_object.save()
-                   my_profile=Profile.objects.create(user=my_user,id=my_user.id)
+                   name=request.session.get('name')
+                   Profile.objects.create(user=my_user,id=my_user.id,name=name)
                    my_user=auth.authenticate(email=mymail,password=password)
                    if my_user:
                       auth.login(request,my_user)
-                      return redirect('profile')
+                      return render(request,'ownprofile.html')
             else:
+                otp_object.failed_attempts += 1
+                # Lock account for 24 hours
+                if otp_object.failed_attempts == 3:
+                    otp_object.locked_until = timezone.now() + timedelta(hours=24)
+                    otp_object.save()
+                    messages.info(request,'Account Has Been locked For 24 hours')
+                    return redirect('otp')
+                
+                #if next 24 hour again give wrong otp handle here
+                if otp_object.failed_attempts>3:
+                    #1 failed attempt for this time
+                    otp_object.failed_attempts = 1
+                    otp_object.locked_until = None
+
+                otp_object.save()
+                if otp_object.failed_attempts==2:
+                    messages.info(request,'Last Attempt')
+                    return redirect('otp')
+                
                 messages.info(request,'OTP NOT MATCHED TRY again')
                 return redirect('otp')
         messages.info(request,'MAIL IS INCORRECT')
@@ -130,23 +189,47 @@ def otp_check(request):
 
 @login_required(login_url='/loguser/')
 def create_profile(request):
-    myprofile=Profile.objects.filter(user=request.user).first()
     if request.method=='POST':
-      if request.FILES.get('compressed_image'):
-        image=request.FILES.get('compressed_image')
+      myprofile=Profile.objects.filter(user=request.user).first()
+      #get the profile image
+      if request.FILES.get('profile_image'):
+        profile_image=request.FILES.get('profile_image')
       else:
-        image=myprofile.profileimage  
+        profile_image = default_image
+
+      #get the cover image  
+      if request.FILES.get('cover_image'):
+        cover_image=request.FILES.get('cover_image')
+        print(cover_image)
+      else:
+        cover_image = default_cover_image
+
       name=request.POST['name']  
       about=request.POST['about']
       school=request.POST['school']
-      myprofile.profileimage=image
+      myprofile.profileimage=profile_image
+      myprofile.backgroundimage=cover_image
+      #if no name passed used signup time name
+      name=name if name else myprofile.name
       myprofile.name=name
       myprofile.about=about
       myprofile.current_study=school
       myprofile.save()
-      return redirect('/')
-    return render(request, 'ownprofile.html',{'myprofile':myprofile})
-  
+      return JsonResponse({"message":"Success done"})
+    
+    #if user wants to edit his profile he will come here
+    else:
+        myprofile=Profile.objects.filter(user=request.user).first()
+        name=myprofile.name
+        about=myprofile.about
+        school=myprofile.current_study
+        context={
+            'name':name,
+            'about':about,
+            'school':school
+        }
+        return render(request,'ownprofile.html',context)
+
 @login_required(login_url='/loguser/')
 def logout(request): 
         auth.logout(request)
@@ -164,10 +247,20 @@ def forgot_otp_check(request):
                 user=CustomUser.objects.filter(email=mail).first()
                 user.set_password(password)
                 user.save()
+                otp_object.failed_attempts=0
+                otp_object.otp=random.randint(100000,999999)
+                otp_object.save()
                 my_user=auth.authenticate(email=mail,password=password)
                 auth.login(request,my_user)
                 return redirect('/')
             else:
+                otp_object.failed_attempts+=1
+                #reassign new otp after 3 failure attempt
+                if otp_object.failed_attempts>=3:
+                    otp_object.failed_attempts=0
+                    otp_object.otp=random.randint(100000,999999)
+                    otp_object.save()
+                otp_object.save()
                 messages.info(request,'OTP NOT MATCHED TRY AGAIN')
                 return redirect('forgot_otp')
     return render(request,'forgototp.html')
@@ -233,11 +326,6 @@ def Follow(request):
     else:
         Followerscount.objects.create(follower=current_user,user=user)
         return redirect(f'/prof/?myuser={user_id}')
-    
-@login_required(login_url='/loguser')
-def home2nd(request):
-    all_post=Post.objects.all()
-    return render(request,'home2.html',{'all_post':all_post,'name':request.user})
 
 @login_required(login_url='/loguser')
 def like_check(request):
@@ -284,7 +372,9 @@ def Createcomment(request):
         user_profile=Profile.objects.filter(user=user).first()
         current_post=Post.objects.filter(id=post_id).first()
         Comment.objects.create(text=comment,comment_by=user_profile,comment_post=current_post)
+        current_post.no_of_coment+=1
         user_profile.comment_by_user+=1
+        current_post.save()
         user_profile.save()
         return JsonResponse({'success': True}) 
 
@@ -309,10 +399,17 @@ def Own_profile(request):
     follower_exist=Followerscount.objects.filter(follower=my_user,user=person_obj).first()
     allfollow=Followerscount.objects.filter(user=person_obj).all()
     allfollow=len(allfollow)
-    if follower_exist:
-        button='UNFOLLOW'
-    else:
-        button='FOLLOW'    
+    #if recent user is owner of recent pic
+    if uy==my_user:
+        button='EDIT PROFILE'
+    else: 
+      #if follow before   
+      if follower_exist:
+         button='UNFOLLOW'
+      #if not follow before   
+      else:
+         button='FOLLOW'   
+          
     person_id=user_profile.user.id
     context={
         'person_id':person_id,
