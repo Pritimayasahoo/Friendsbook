@@ -1,6 +1,7 @@
 <html>
 <head>
     {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-***" crossorigin="anonymous" />
     <link rel='stylesheet' href="{% static 'cssfile/home.css' %}">
@@ -9,51 +10,55 @@
 
 <body>
 <div class="container">
-    <header>
-      <div class="pic">
-        <img id="click-img" class='circle' src="{{profile.profileimage.url}}" alt="Profile Picture">
-      </div>
+  <header>
+    <div class="pic">
+      <img id="click-img" class='circle' src="{{profile.profileimage.url}}" alt="Profile Picture">
+    </div>
 
 
-      <div class="sub-menu-wrap" id="subMenu">
-        <div class="sub-menu">
-            <div class="user-info">
-              <img src="{{profile.profileimage.url}}" alt="Profile Picture">
-              <h3>{{profile.name}}</h3>
-            </div>
-            <hr>
+    <div class="sub-menu-wrap" id="subMenu">
+      <div class="sub-menu">
+          <div class="user-info">
+            <img src="{{profile.profileimage.url}}" alt="Profile Picture">
+            <h3>{{profile.name}}</h3>
+          </div>
+          <hr>
 
-            <a href="editprof/" class="sub-menu-link">
-              <img src="{% static 'imagefile/profile.png' %}" alt="noimg">
-              <p>Own Profile</p>
-            </a>  
+          <a href="editprof/" class="sub-menu-link">
+            <img src="{% static 'imagefile/profile.png' %}" alt="noimg">
+            <p>Own Profile</p>
+          </a>  
 
-            <a href="/profile/" class="sub-menu-link">
-              <img src="{% static 'imagefile/edit_profile.png' %}" alt="noimg">
-              <p>Edit Profile</p>
-            </a>  
+          <a href="/profile/" class="sub-menu-link">
+            <img src="{% static 'imagefile/edit_profile.png' %}" alt="noimg">
+            <p>Edit Profile</p>
+          </a>  
 
-            <a href="/logout/" class="sub-menu-link">
-              <img src="{% static 'imagefile/logout.png' %}" alt="noimg">
-              <p>Logout</p>
-            </a>  
+          <a href="/logout/" class="sub-menu-link">
+            <img src="{% static 'imagefile/logout.png' %}" alt="noimg">
+            <p>Logout</p>
+          </a>  
 
-        </div>    
-      </div>
+      </div>    
+    </div>
 
-          <form id="like-url" class="search-form" action="search/" method="POST" data-post-url="{% url 'like' %}">
-            {%csrf_token%}
-            <div class="search-bar">
-              <input class="space search-input" type="text" name="searchname" placeholder="Search" required>
-              <button class="search-button" type="submit">
-                <i class="fa fa-search"></i>
-              </button>
-              <br>
-              
-            </div>
-          </form>
-             
-    </header>
+        <form id="like-url" class="search-form" action="search/" method="POST" data-post-url="{% url 'like' %}">
+          {%csrf_token%}
+          <div class="search-bar">
+            <input class="space search-input" type="text" name="searchname" placeholder="Search" required>
+            <button class="search-button" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+            <br>
+            
+          </div>
+        </form>
+        <!-- Post button -->
+        <a href="/post/" class="btn-post">
+          <i class="fas fa-plus"></i>
+       <span class="btn-label">Post</span>
+       </a>   
+  </header>
 
   <div class="main">
       {%for post in all_post reversed%}
@@ -65,7 +70,7 @@
           </div>
         </div>
         <p>{{post.about}}</p>
-        <img class='lazy-image loading' src='' width="100%" data-src='{{post.my_post.url}}'>
+        <img loading="lazy" src='{{post.my_post.url}}' width="100%">
 
         <div class="post-status"> 
 
@@ -101,30 +106,6 @@
 
       {%endfor%}
   </div>    
-    <footer>
-        <nav>
-           <!-- Home button -->
-
-<!-- Home button -->
-<a href="/" class="btn-home">
-  <i class="fas fa-home"></i>
-  <span class="btn-label">Home</span>
-</a>
-
-<!-- Post button -->
-<a href="/post/" class="btn-post">
-  <i class="fas fa-plus"></i>
-  <span class="btn-label">Post</span>
-</a>
-
-<!-- Notification button -->
-<a href="#" class="btn-notification">
-  <i class="fas fa-bell"></i>
-  <span class="btn[-label">Notifications</span>
-</a>
-  
-        </nav>
-    </footer>
 </div>
 
 

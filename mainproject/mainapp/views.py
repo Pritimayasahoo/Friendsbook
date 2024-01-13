@@ -47,13 +47,13 @@ def send_otp(name,email,otp):
     headers = {
        "Content-Type": "application/JSON",
        "Accept": "application/json",
-       "authkey": "396373AgC8FX3CzNwJ645a623bP1"
+       "authkey": "396373AC78f3NtG6492a1a7P1"
         }
     response = requests.post(url, data=payload, headers=headers)
     if response.status_code == 200:
-       pass
+       print('ok')
     else :
-       pass
+       print('wrong')
     return None
 
 def signup(request):
