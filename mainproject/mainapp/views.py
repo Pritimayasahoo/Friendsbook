@@ -51,9 +51,9 @@ def send_otp(name,email,otp):
         }
     response = requests.post(url, data=payload, headers=headers)
     if response.status_code == 200:
-       print('ok')
+       pass
     else :
-       print('wrong')
+       pass
     return None
 
 def signup(request):
