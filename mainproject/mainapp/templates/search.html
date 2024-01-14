@@ -1,7 +1,27 @@
-{%for profile in profiles%}
-<img width='200' src='{{profile.profileimage.url}}'>
-<br>
-<a href="/prof/?myuser={{profile.user.id}}">{{profile.name}}</a>
-<br>
-<br>
-{%endfor%}
+<html>
+    <head>
+        {% load static %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+        <link rel='stylesheet' href="{% static 'cssfile/search.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <form id="like-url" class="search-form" action="/search/" method="POST" data-post-url="{% url 'like' %}">
+            {%csrf_token%}
+            <div class="search-bar">
+              <input class="space search-input" type="text" name="searchname" placeholder="Search" required>
+              <button class="search-button" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+              <br>  
+            </div>
+          </form>
+        {%for profile in profiles%}
+        <div class="searchresult">
+          <img width='200' src='{{profile.profileimage.url}}'>
+          <a href="/prof/?myuser={{profile.user.id}}">{{profile.name}}</a>
+          <p>{{profile.no_of_followers}} Followers</p>
+        </div>  
+        {%endfor%}
+
+    </body>        
