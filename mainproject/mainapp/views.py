@@ -159,7 +159,7 @@ def otp_check(request):
                    my_user=auth.authenticate(email=mymail,password=password)
                    if my_user:
                       auth.login(request,my_user)
-                      return render(request,'ownprofile.html')
+                      return render(request,'owneditprofile.html')
             else:
                 otp_object.failed_attempts += 1
                 # Lock account for 24 hours
@@ -200,7 +200,6 @@ def create_profile(request):
       #get the cover image  
       if request.FILES.get('cover_image'):
         cover_image=request.FILES.get('cover_image')
-        print(cover_image)
       else:
         cover_image = default_cover_image
 
@@ -228,7 +227,7 @@ def create_profile(request):
             'about':about,
             'school':school
         }
-        return render(request,'ownprofile.html',context)
+        return render(request,'owneditprofile.html',context)
 
 @login_required(login_url='/loguser/')
 def logout(request): 
@@ -423,7 +422,7 @@ def Own_profile(request):
     return render(request,'new_profile.html',context)
 #Show your Own profile
 @login_required(login_url='/loguser') 
-def Own_edit_profile(request):
+def Own_profile(request):
     uy=request.user
     user_profile=Profile.objects.filter(user=uy).first()
     allfollow=Followerscount.objects.filter(user=uy)
@@ -434,7 +433,7 @@ def Own_edit_profile(request):
         'number':allfollow,
         'profile':user_profile,
     }    
-    return render(request,'owneditprofile.html',context)
+    return render(request,'ownprofile.html',context)
 #Delete a picture
 @login_required(login_url='/loguser') 
 def Deletepic(request):

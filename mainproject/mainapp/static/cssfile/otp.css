@@ -11,7 +11,7 @@ body {
   padding: 20px;
   background-color:lightgrey;
   padding-right:50px;
-  border-radius:90px;
+  border-radius:10px;
 }
 
 h3 {
@@ -19,7 +19,7 @@ h3 {
   color:red;
 }
 h2{
-  margin-left:120px;
+  margin-left:150px;
 }
 
 .form-group {
