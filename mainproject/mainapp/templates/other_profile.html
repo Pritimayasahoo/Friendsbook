@@ -25,14 +25,14 @@
         {%endif%} 
 
         {%if myuser == user%}
-          <button class="follow-button" onclick="window.location.href='/profile/'">{{button}}</button>
+          <button class="follow-button" onclick="window.location.href='/editprof/'">{{button}}</button>
         {%else%}
           <button class="follow-button" onclick="window.location.href='/follow/?myuser={{person_id}}'">{{button}}</button>                                           
         {%endif%}  
       </div>
     </div>
     <h3>{{profile.name}}</h3>
-    <h4>cool guy who is i  or who</h4>
+    <h4>{{profile.about}}</h4>
     <div class="joined-date">Joined: {{profile.user_create|date:"F j Y"}}</div>
   </div>
 </body>

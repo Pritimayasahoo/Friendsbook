@@ -24,12 +24,12 @@
           </div>
           <hr>
 
-          <a href="editprof/" class="sub-menu-link">
+          <a href="ownprofile/" class="sub-menu-link">
             <img src="{% static 'imagefile/profile.png' %}" alt="noimg">
             <p>Own Profile</p>
           </a>  
 
-          <a href="/profile/" class="sub-menu-link">
+          <a href="/editprof/" class="sub-menu-link">
             <img src="{% static 'imagefile/edit_profile.png' %}" alt="noimg">
             <p>Edit Profile</p>
           </a>  
@@ -64,7 +64,7 @@
       {%for post in all_post reversed%}
       <div class="post">
         <div class="post-author">
-          <a href="prof/?myuser={{post.post_by.id}}"><img loading="lazy" src="{{post.poster_profile.profileimage.url}}" alt="Image"></a>
+          <a href="prof/?myuser={{post.poster_profile.id}}"><img loading="lazy" src="{{post.poster_profile.profileimage.url}}" alt="Image"></a>
           <div>
             <h1>{{post.poster_profile.name}}</h1>
           </div>

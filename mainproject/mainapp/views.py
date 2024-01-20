@@ -288,43 +288,21 @@ def forgotpassword(request):
 def my_post(request):
     return render(request, 'post.html') 
 
-def view_profile(request,name):
-    my_user=request.user
-    person_profile=Profile.objects.filter(name=name).first()
-    person_obj=person_profile.user
-    follower_exist=Followerscount.objects.filter(follower=my_user,user=person_obj).first()
-    allfollow=Followerscount.objects.filter(user=person_obj).all()
-    allfollow=len(allfollow)
-    user_profile=person_profile
-    if follower_exist:
-        button='UNFOLLOW'
-    else:
-        button='FOLLOW'    
-    person_id=person_profile.user.id
-    context={
-        'person_id':person_id,
-        'myuser':my_user,
-        'button':button,
-        'number':allfollow,
-        'profile':user_profile
-
-    }
-    return render(request,'studentprofile.html',context)
-
 @login_required(login_url='/loguser')
 def Follow(request):
     current_user=request.user
     user_id=request.GET.get('myuser')
     user=CustomUser.objects.filter(id=user_id).first()
     user_profile=Profile.objects.filter(user=user).first()
+    profile_id=user_profile.id
     #user_name=user_profile.name
     follower_exist=Followerscount.objects.filter(follower=current_user,user=user).first()
     if follower_exist:   
         follower_exist.delete()
-        return redirect(f'/prof/?myuser={user_id}')
+        return redirect(f'/prof/?myuser={profile_id}')
     else:
         Followerscount.objects.create(follower=current_user,user=user)
-        return redirect(f'/prof/?myuser={user_id}')
+        return redirect(f'/prof/?myuser={profile_id}')
 
 @login_required(login_url='/loguser')
 def like_check(request):
@@ -388,18 +366,19 @@ def Search(request):
         return redirect('/')
 
 @login_required(login_url='/loguser')    
-def Own_profile(request):
+def Other_profile(request):
     user_id=request.GET.get('myuser')
-    uy=CustomUser.objects.filter(id=user_id).first()
-    user_profile=Profile.objects.filter(user=uy).first()
+    user_profile=Profile.objects.filter(id=user_id).first()
+    #uy=user_profile.user
     my_user=request.user
     #person_profile=Profile.objects.filter(name=n).first()
     person_obj=user_profile.user
+    person_id=person_obj.id
     follower_exist=Followerscount.objects.filter(follower=my_user,user=person_obj).first()
     allfollow=Followerscount.objects.filter(user=person_obj).all()
     allfollow=len(allfollow)
     #if recent user is owner of recent pic
-    if uy==my_user:
+    if person_obj==my_user:
         button='EDIT PROFILE'
     else: 
       #if follow before   
@@ -409,17 +388,17 @@ def Own_profile(request):
       else:
          button='FOLLOW'   
           
-    person_id=user_profile.user.id
+    
     context={
         'person_id':person_id,
         'myuser':my_user,
         'button':button,
         'number':allfollow,
         'profile':user_profile,
-        'user':uy
+        'user':person_obj
 
     }    
-    return render(request,'new_profile.html',context)
+    return render(request,'other_profile.html',context)
 #Show your Own profile
 @login_required(login_url='/loguser') 
 def Own_profile(request):

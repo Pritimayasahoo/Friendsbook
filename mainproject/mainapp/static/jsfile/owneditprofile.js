@@ -149,7 +149,7 @@ submit_btn.addEventListener("click",function(e){
  formData.append("name", name_value);
 
  //send data to backend
- fetch("/profile/", {
+ fetch("/editprof/", {
    method: "POST",
     headers: {
    // Include the CSRF token in the request header
