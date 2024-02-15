@@ -1,5 +1,6 @@
 {
-    "build": [
-      {"cmd": "python manage.py collectstatic"}
-    ]
-  }
+  "build": [
+    {"cmd": "python manage.py collectstatic"}
+  ],
+  "startCommand": "gunicorn mainproject.mainapp.wsgi --bind 0.0.0.0:$PORT"
+}
