@@ -1,48 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <title>Own profile</title>
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link rel='stylesheet' href="{% static 'cssfile/owneditprofile.css' %}">
-    <script defer src="https://unpkg.com/image-compressor.js/dist/image-compressor.min.js"></script>
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'cssfile/owneditprofile.css' %}" />
+    <script
+      defer
+      src="https://unpkg.com/image-compressor.js/dist/image-compressor.min.js"
+    ></script>
     <script defer src="{% static 'jsfile/owneditprofile.js' %}"></script>
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <!--profile pic upload area-->
+        <input
+          type="file"
+          name="image_data"
+          id="profile-file"
+          accept="image/*"
+          hidden
+        />
+        <div class="img-area" data-img="">
+          <i class="bx bxs-cloud-upload icon"></i>
+        </div>
+        <button class="select-image" id="pic-btn" disabled>
+          Select Profile Pic
+        </button>
 
-</head>
-<body>
-  <div class="container">
-    <div class="left-side">
-      <!----profile pic upload area-->
-      <input type="file" name="image_data" id="profile-file" accept="image/*" hidden>
-      <div class="img-area" data-img="">
-        <i class='bx bxs-cloud-upload icon'></i>
-      </div>  
-      <button class="select-image" id="pic-btn" disabled>Select Profile Pic</button>
-      
-      <!---cover pic upload area-->
-      <input type="file" name="image_data" id="cover-file" accept="image/*" hidden>
-      <div class="cover-pic" data-img="">
-        <i class='bx bxs-cloud-upload icon'></i>
-      </div>  
-      <button class="cover-pic-button" id="cover-btn" disabled>Select Cover Pic</button>
-    </div>  
+        <!--cover pic upload area-->
+        <input
+          type="file"
+          name="image_data"
+          id="cover-file"
+          accept="image/*"
+          hidden
+        />
+        <div class="cover-pic" data-img="">
+          <i class="bx bxs-cloud-upload icon"></i>
+        </div>
+        <button class="cover-pic-button" id="cover-btn" disabled>
+          Select Cover Pic
+        </button>
+      </div>
 
-    <!--Other extra information-->>
-    <div class="information">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" placeholder="Name" value="{{name}}">
-      <br>
-      <label for="about">About:</label>
-      <input type="text" id="about" name="about" placeholder="About" value="{{about}}">
-      <br>
-      <label for="school">School:</label>
-      <input type="text" id="school" name="school" placeholder="School" value="{{school}}">
-      <button class="final-submit" id="submit-btn" disabled>Submit Profile</button>
-    </div>  
- </div>
-</body>
+      <!--Other extra information-->
+      <div class="information">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name"
+          value="{{name}}"
+        />
+        <br />
+        <label for="about">About:</label>
+        <input
+          type="text"
+          id="about"
+          name="about"
+          placeholder="About"
+          value="{{about}}"
+        />
+        <br />
+        <label for="school">School:</label>
+        <input
+          type="text"
+          id="school"
+          name="school"
+          placeholder="School"
+          value="{{school}}"
+        />
+        <button class="final-submit" id="submit-btn" disabled>
+          Submit Profile
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
-

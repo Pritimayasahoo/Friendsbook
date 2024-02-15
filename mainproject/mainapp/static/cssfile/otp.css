@@ -12,11 +12,13 @@ body {
   background-color:lightgrey;
   padding-right:50px;
   border-radius:10px;
+  margin-top: 120px;
 }
 
 h3 {
   text-align: center;
   color:red;
+  margin-left: 40px;
 }
 h2{
   margin-left:150px;

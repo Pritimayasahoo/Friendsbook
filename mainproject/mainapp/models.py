@@ -43,7 +43,7 @@ class Profile(models.Model):
     no_of_followers=models.IntegerField(default=0)
     comment_by_user=models.IntegerField(default=0)
    
-    def __str__(self):
+    def __str__(self):  
         return self.user.email
 
 class Post(models.Model):

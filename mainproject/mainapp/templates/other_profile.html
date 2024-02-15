@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'cssfile/new_profile.css' %}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New profile</title>
-    <link rel='stylesheet' href="{% static 'cssfile/new_profile.css' %}">
+  </head>
 
-</head>
-
-<body>
-  <div class="profile-container">
-    <div class="profile-header" style="background-image: url('{{ profile.backgroundimage.url }}');">
-      <div class="profile-image">
-        <img src="{{profile.profileimage.url}}" alt="Profile Image">
+  <body>
+    <div class="profile-container">
+      <div
+        class="profile-header"
+        style="background-image: url('{{ profile.backgroundimage.url }}');"
+      >
+        <div class="profile-image">
+          <img src="{{profile.profileimage.url}}" alt="Profile Image" />
+        </div>
+        <div class="follow-container">
+          {%if number == 0%}
+          <span class="follower-count">NO FOLLOWERS</span>
+          {%elif number == 1%}
+          <span class="follower-count">1 FOLLOWER</span>
+          {%else%}
+          <span class="follower-count">{{number}} FOLLOWERS</span>
+          {%endif%} {%if myuser == user%}
+          <button
+            class="follow-button"
+            onclick="window.location.href='/editprof/'"
+          >
+            {{button}}
+          </button>
+          {%else%}
+          <button
+            class="follow-button"
+            onclick="window.location.href='/follow/?myuser={{person_id}}'"
+          >
+            {{button}}
+          </button>
+          {%endif%}
+        </div>
       </div>
-      <div class="follow-container">
-        {%if number == 0%}
-        <span class="follower-count">NO FOLLOWERS</span>
-        {%elif number == 1%}
-        <span class="follower-count">1 FOLLOWER</span>
-        {%else%}
-        <span class="follower-count">{{number}} FOLLOWERS</span>
-        {%endif%} 
-
-        {%if myuser == user%}
-          <button class="follow-button" onclick="window.location.href='/editprof/'">{{button}}</button>
-        {%else%}
-          <button class="follow-button" onclick="window.location.href='/follow/?myuser={{person_id}}'">{{button}}</button>                                           
-        {%endif%}  
+      <h3>{{profile.name}}</h3>
+      <h4>{{profile.about}}</h4>
+      <div class="joined-date">
+        Joined: {{profile.user_create|date:"F j Y"}}
       </div>
     </div>
-    <h3>{{profile.name}}</h3>
-    <h4>{{profile.about}}</h4>
-    <div class="joined-date">Joined: {{profile.user_create|date:"F j Y"}}</div>
-  </div>
-</body>
+  </body>
 </html>

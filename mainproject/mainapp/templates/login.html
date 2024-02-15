@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'cssfile/login.css' %}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login page</title>
-	<link rel='stylesheet' href="{% static 'cssfile/login.css' %}">
-
-</head>
-<body>
-	<div class="container">
-			<form class="login-form" action="" method="POST">
-			{% for message in messages %}
-            <h5>{{message}}</h5>
-            {% endfor %}
-			{% csrf_token %}
-			<h2>Login</h2>
-			<div class="form-group">
-				<input type="email" name="email" placeholder="Email" required>
-			</div>
-			<div class="form-group">
-				<input type="password" name="password" placeholder="Password" required>
-			</div>
-			<div class="form-group">
-				<button type="submit">Login</button>
-			</div>
-			<p class="signup-link">Don't have an account? <a href="/signup/">Sign up</a></p>
-			<a id='forgot' href='/forgot/'>Forgot password</a>
-		</form>
-	</div>
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <form class="login-form" action="" method="POST">
+        {% for message in messages %}
+        <h5>{{message}}</h5>
+        {% endfor %} {% csrf_token %}
+        <h2>Login</h2>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+        </div>
+        <p class="signup-link">
+          Don't have an account? <a href="/signup/">Sign up</a>
+        </p>
+        <a id="forgot" href="/forgot/">Forgot password</a>
+      </form>
+    </div>
+  </body>
 </html>
