@@ -4,4 +4,4 @@ services:
   - name: web
     buildCommand: python manage.py collectstatic --noinput
     buildPath: /app
-    startCommand: gunicorn mainproject.mainapp.wsgi --bind 0.0.0.0:$PORT
+    startCommand: gunicorn myproject.wsgi --bind 0.0.0.0:$PORT
