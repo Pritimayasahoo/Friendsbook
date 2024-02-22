@@ -87,17 +87,26 @@
           <span class="btn-label">Post</span>
         </a>
       </header>
-
       <div class="main">
         {%for post in all_post reversed%}
         <div class="post">
           <div class="post-author">
-            <a href="prof/?myuser={{post.poster_profile.id}}"
+            {% if name == post.post_by %}
+
+             <a href="/ownprofile/"
               ><img
                 loading="lazy"
                 src="{{post.poster_profile.profileimage.url}}"
                 alt="Image"
             /></a>
+            {% else %}
+            <a href="prof/?myuser={{post.poster_profile.id}}"
+            ><img
+              loading="lazy"
+              src="{{post.poster_profile.profileimage.url}}"
+              alt="Image"
+          /></a>
+          {% endif %}
             <div>
               <h1>{{post.poster_profile.name}}</h1>
             </div>

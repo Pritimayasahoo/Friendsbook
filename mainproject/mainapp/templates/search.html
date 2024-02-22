@@ -35,11 +35,19 @@
       </div>
     </form>
     {%for profile in profiles%}
-    <div class="searchresult">
-      <img width="200" src="{{profile.profileimage.url}}" />
-      <a href="/prof/?myuser={{profile.id}}">{{profile.name}}</a>
-      <p>{{profile.no_of_followers}} Followers</p>
-    </div>
+    {% if profile.user == user %}
+      <div class="searchresult">
+        <img width="200" src="{{profile.profileimage.url}}" />
+        <a href="/ownprofile/">{{profile.name}}</a>
+        <p>{{profile.no_of_followers}} Followers</p>
+      </div>
+    {% else %}  
+      <div class="searchresult">
+        <img width="200" src="{{profile.profileimage.url}}" />
+        <a href="/prof/?myuser={{profile.id}}">{{profile.name}}</a>
+        <p>{{profile.no_of_followers}} Followers</p>
+      </div>
+    {% endif %}
     {%endfor%}
   </body>
 </html>

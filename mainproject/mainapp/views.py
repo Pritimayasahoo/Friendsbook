@@ -27,7 +27,8 @@ def home(request):
     all_post = list(all_post)
     random.shuffle(all_post)
     user_profile = Profile.objects.filter(user=request.user).first()
-    return render(request, 'home.html', {'profile': user_profile, 'name': request.user, 'all_post': all_post})
+    context={'profile': user_profile, 'name': request.user, 'all_post': all_post}
+    return render(request, 'home.html',context)
 
 
 '''FROM LINE 36 TO 374 CREDENTIAL RELATED LOGIC '''
@@ -440,17 +441,14 @@ def Other_profile(request):
     user_profile = Profile.objects.filter(id=user_id).first()
     my_user = request.user
     person_obj = user_profile.user
+    all_post=Post.objects.filter(
+            Q(postshow=True) & Q(post_by=person_obj)).all()
     person_id = person_obj.id
     follower_exist = Followerscount.objects.filter(
         follower=my_user, user=person_obj).first()
     allfollow = Followerscount.objects.filter(user=person_obj).all()
     allfollow = len(allfollow)
-
-    # Set Up Button For Show In Profile
-    if person_obj == my_user:
-        button = 'EDIT PROFILE'
-    else:
-        button = 'UNFOLLOW' if follower_exist else 'FOLLOW'
+    button = 'UNFOLLOW' if follower_exist else 'FOLLOW'
 
     context = {
         'person_id': person_id,
@@ -458,7 +456,8 @@ def Other_profile(request):
         'button': button,
         'number': allfollow,
         'profile': user_profile,
-        'user': person_obj
+        'user': person_obj,
+        'posts':all_post
     }
     return render(request, 'other_profile.html', context)
 
@@ -476,7 +475,7 @@ def Search(request):
 @login_required(login_url='/loguser')
 def Follow(request):
     current_user = request.user
-    user_id = request.GET.get('myuser')
+    user_id = request.GET.get('user_id')
     user = CustomUser.objects.filter(id=user_id).first()
     user_profile = Profile.objects.filter(user=user).first()
     profile_id = user_profile.id
@@ -484,11 +483,18 @@ def Follow(request):
         follower=current_user, user=user).first()
     if follower_exist:
         follower_exist.delete()
-        return redirect(f'/prof/?myuser={profile_id}')
+        button ='FOLLOW'
+        #return redirect(f'/prof/?myuser={profile_id}')
     else:
         Followerscount.objects.create(follower=current_user, user=user)
-        return redirect(f'/prof/?myuser={profile_id}')
-
+        button = 'UNFOLLOW'
+        #return redirect(f'/prof/?myuser={profile_id}')
+    followers=Followerscount.objects.filter(user=user)
+    data = {
+        'followers':len(followers),
+        'button':button
+    }
+    return JsonResponse(data)
 
 '''FROM LINE 453 TO 479 POST IMAGE RELATED LOGIC'''
 

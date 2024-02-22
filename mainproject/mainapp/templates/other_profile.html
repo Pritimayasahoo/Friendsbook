@@ -19,26 +19,17 @@
         </div>
         <div class="follow-container">
           {%if number == 0%}
-          <span class="follower-count">NO FOLLOWERS</span>
+          <span class="follower-count" id="followers">NO FOLLOWERS</span>
           {%elif number == 1%}
-          <span class="follower-count">1 FOLLOWER</span>
+          <span class="follower-count" id="followers">1 FOLLOWER</span>
           {%else%}
-          <span class="follower-count">{{number}} FOLLOWERS</span>
-          {%endif%} {%if myuser == user%}
-          <button
-            class="follow-button"
-            onclick="window.location.href='/editprof/'"
-          >
-            {{button}}
-          </button>
-          {%else%}
-          <button
-            class="follow-button"
-            onclick="window.location.href='/follow/?myuser={{person_id}}'"
-          >
-            {{button}}
-          </button>
+          <span class="follower-count" id="followers">{{number}} FOLLOWERS</span>
           {%endif%}
+          <button
+            class="follow-button" id="follow"        
+          >
+            {{button}}
+          </button>
         </div>
       </div>
       <h3>{{profile.name}}</h3>
@@ -47,5 +38,57 @@
         Joined: {{profile.user_create|date:"F j Y"}}
       </div>
     </div>
+    {% for post in posts %}
+      <img
+        loading="lazy"
+        width="700"
+        src="{{post.my_post.url}}"
+        data-postid="{{post.id}}"
+      />
+    {%endfor%}
+    <input type="hidden" value="{{person_id}}" id="person_id">
   </body>
+
+  <script>
+    // Send Lie status to backend asynchronously
+    const Followers=document.getElementById('followers');
+    const follow=document.getElementById('follow')
+    const person_id=document.getElementById('person_id')
+    const person_id_value=person_id.value
+    console.log(person_id_value,"this is id")
+
+
+const Follow_click = async function (person_id_value) {
+  try {
+    const response = await fetch(`/follow/?user_id=${person_id_value}`)
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json()
+    // Update the like count on the frontend
+    if (data.followers == 0) {
+      Followers.textContent = `NO FOLLOWERS`;
+    }
+    else if (data.followers == 1) {
+      Followers.textContent = `1 FOLLOWER`;
+    }
+    else {
+      Followers.textContent = `${data.followers} FOLLOWERS`;
+    }
+    follow.textContent=data.button
+
+  }
+  catch (error) {
+    console.error('There was a problem fetching the data:', error);
+  }
+
+}
+
+follow.addEventListener("click", function () {
+  
+  Follow_click(person_id_value)
+
+})
+  </script>
 </html>
