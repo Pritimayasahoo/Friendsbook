@@ -4,115 +4,112 @@
   min-height: 100vh;
 }
 
-header{
+header {
   position: fixed;
   left: 0;
-  width:100%;
-  background-color:lightgray;
-  /* Other styles for the fixed header/footer */
+  width: 100%;
+  background-color: lightgray;
 }
 
 footer {
- bottom:0;
+  bottom: 0;
 }
 
-.pic{
-  margin-left:0px;
-  padding-right:5px;
-  margin-top:-8px;
+.pic {
+  margin-left: 0px;
+  padding-right: 5px;
+  margin-top: -8px;
 }
 
 
-header nav, footer nav {
+header nav,
+footer nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height:50px; /* Adjust the height as desired */
+  height: 50px;
 }
 
 
-/* Remove underline from anchor tags */
 a {
   text-decoration: none;
   display: inline-block;
   text-decoration: none;
-  }
-  
-/* Style for post button */
-.btn-post{
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
-margin-left: 930px;
-font-size: 16px;
-color: green; /* Adjust the color as needed */
 }
 
-/* Style for the labels */
 
+.btn-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: 930px;
+  font-size: 16px;
+  color: green;
+}
 
 header {
-display: flex;
-align-items: center;
-padding:12px;
-margin-top:-9px;
-height:30px
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-top: -9px;
+  height: 30px
 }
 
 
 
-/*Comment button styling */
-.comment a{
+.comment a {
   margin-left: 45px;
   margin-top: 10px;
   border: none;
-  background-color:None; /* Adjust the background color as needed */
-  color:Blue; /* Adjust the text color as needed */
-  font-size:20px; 
- 
+  background-color: None;
+  color: Blue;
+  font-size: 20px;
+
 }
 
-/*Like button styling */
-.like-btn{
+
+.like-btn {
   cursor: pointer;
-  font-size:25px;
+  font-size: 25px;
 }
+
 .search-form {
-display: flex;
-justify-content: center; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
 }
 
 .search-bar {
-position: relative;
+  position: relative;
 }
 
 .search-input {
-margin-top:11px;  
-padding:5px;  
-width:300px;
-border: none;
-border-radius:10px;
-font-size:20px;
+  margin-top: 11px;
+  padding: 5px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
 }
 
 .search-input:focus::placeholder {
-color: transparent;
+  color: transparent;
 }
-.search-input:not(:placeholder-shown) + .search-button {
-display: none;
+
+.search-input:not(:placeholder-shown)+.search-button {
+  display: none;
 }
 
 .search-button {
-position: absolute;
-right: 0;
-background-color: transparent;
-border: none;
-margin-top:17px;
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  margin-top: 17px;
 }
 
 .fa-search {
-font-size:20px;
+  font-size: 20px;
 }
 
 
@@ -123,38 +120,38 @@ font-size:20px;
 
 .post {
   width: 450px;
-  background:wheat;
-  margin:0px 5px 5px 400px;/* top right bottom left */
-  padding:5px 50px 10px;
+  background: wheat;
+  margin: 0px 5px 5px 400px;
+  padding: 5px 50px 10px;
   word-wrap: break-word;
   border-radius: 10px;
 }
 
-.post-author{
-  display:flex;
+.post-author {
+  display: flex;
   align-items: flex-start;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-.post-author img{
+.post-author img {
   width: 35px;
   border-radius: 50%;
   margin-right: 10px;
   margin-top: 5px;
 }
 
-.post-author h1{
+.post-author h1 {
   font-size: 18px;
   font-weight: 600;
   color: #333;
 }
 
-.post p{
+.post p {
   font-size: 14px;
   margin-bottom: 15px;
 }
 
-.post-status{
+.post-status {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -181,28 +178,31 @@ font-size:20px;
   display: flex;
   align-items: center;
 }
-.main{
+
+.main {
   padding-top: 52px;
 }
-header .circle{
-  width:50px;
-  height:50px;
-  margin-top:5px;
+
+header .circle {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
 }
 
- .about{
-  margin-top:-10px;
-  margin-left:400px;
+.about {
+  margin-top: -10px;
+  margin-left: 400px;
   word-wrap: break-word;
-  width:100%;
-  max-width:640px;
-  font-size:20px;/* Adjust as needed */
-  
-} 
+  width: 100%;
+  max-width: 640px;
+  font-size: 20px;
+
+}
+
 .circle {
-  width:30px;
+  width: 30px;
   height: 30px;
-  border-radius:70%;
+  border-radius: 70%;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -211,140 +211,146 @@ header .circle{
 
 
 
-#logout{
-  margin-top:10px;
-  margin-left:3px;
-  padding-top:7px;
-  border:none;
-  border-radius:5px;
-}
-#logout:hover{
-  background-color:red;
-  color:white;
+#logout {
+  margin-top: 10px;
+  margin-left: 3px;
+  padding-top: 7px;
+  border: none;
+  border-radius: 5px;
 }
 
-/* Adjust the post by and post by image */
+#logout:hover {
+  background-color: red;
+  color: white;
+}
+
+
 .image-container {
   display: inline-flex;
   align-items: center;
-  margin-left:320px;
+  margin-left: 320px;
   padding-top: 10px;
 
 }
 
 .image-text {
-  /* Adjust the margin as needed */
-  font-size:25px;
+  font-size: 25px;
 }
 
-.hy{
-  margin-top:calc((100vw *10) / 100);
+.hy {
+  margin-top: calc((100vw *10) / 100);
 }
 
-button{
-  border:None;
-  background-color:transparent;
-} 
+button {
+  border: None;
+  background-color: transparent;
+}
 
-.sub-menu-wrap{
-  position:absolute;
+.sub-menu-wrap {
+  position: absolute;
   top: 100%;
   left: 1%;
-  width:300px;
+  width: 300px;
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.5s;
-  
+
 }
 
-/*This class add by js to show the drop down menu*/
-.open-menu{
+
+.open-menu {
   max-height: 400px;
 }
-.sub-menu{
+
+.sub-menu {
   background: cornflowerblue;
-  padding:20px;
-  margin:10px;
+  padding: 20px;
+  margin: 10px;
   border-radius: 9px;
 }
 
-.user-info h2{
+.user-info h2 {
   font-weight: 300;
 }
 
-.user-info img{
-   width: 65px;
-   height: 65px;
-   border-radius: 50%;
-   margin-right: 10px;
+.user-info img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-.sub-menu hr{
-  border:0;
-  width:100%;
+.sub-menu hr {
+  border: 0;
+  width: 100%;
   background: #ccc;
   margin: 15px 0 10px;
-} 
-
-.sub-menu-link{
-  display:flex;
-  align-items:center;
-  text-decoration: none;
-  color:antiquewhite;
-  margin:12px 0;/*12 px top and bottom*/
 }
 
-.sub-menu-link p{
+.sub-menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: antiquewhite;
+  margin: 12px 0;
+}
+
+.sub-menu-link p {
   width: 100%;
 }
 
-.sub-menu-link img{
-  width:20px;
+.sub-menu-link img {
+  width: 20px;
   margin-right: 13px;
   background: #e5e5e5;
-  border-radius:50%;
+  border-radius: 50%;
   padding: 8px;
 }
 
-.sub-menu-link:hover p{
+.sub-menu-link:hover p {
   font-weight: 700;
 }
 
-#click-img:hover{
-   cursor: pointer;
+#click-img:hover {
+  cursor: pointer;
 }
 
 /* Add responsive styling for mobile screens */
 @media (max-width:1000px) {
-	.main{
+  .main {
     width: 86%;
     max-width: 900px;
-    margin-left:-103%;
-     
+    margin-left: -103%;
+
   }
-  .post{
-    width:95%;
+
+  .post {
+    width: 95%;
     max-width: 900px;
   }
-  .btn-post{
+
+  .btn-post {
     margin-left: 5px;
 
   }
-  header{
+
+  header {
     display: flexbox;
     position: fixed;
     padding-left: -20px;
-    background-color:lightgray;
-    /* Other styles for the fixed header/footer */
+    background-color: lightgray;
+
   }
-  .pic .circle{
-    max-width:33px;
-    max-height:33px;
+
+  .pic .circle {
+    max-width: 33px;
+    max-height: 33px;
     margin-left: -9px;
   }
-  .search-input{
-     width:230px;
+
+  .search-input {
+    width: 230px;
   }
-  
- 
+
+
 }

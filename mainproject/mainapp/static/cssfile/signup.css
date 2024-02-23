@@ -23,8 +23,9 @@ h2 {
 .form-group {
   margin-bottom: 20px;
 }
-.form-group #email{
-    margin-right:60px;
+
+.form-group #email {
+  margin-right: 60px;
 
 }
 
@@ -45,33 +46,35 @@ h2 {
   background-color: #4caf50;
   color: #ffffff;
   cursor: pointer;
-  
-  
+
+
 }
 
 .form-group input[type="submit"]:hover {
   background-color: #45a049;
 }
 
+/* Add responsive styling for mobile screens */
 @media(max-width: 1000px) {
   .container {
     max-width: 150%;
     padding: 50px;
-    border-radius:7px;
-    height:500px;
-    background-color:lightgrey;
-    width:800px;
-    margin:0px;
+    border-radius: 7px;
+    height: 500px;
+    background-color: lightgrey;
+    width: 800px;
+    margin: 0px;
   }
+
   .form-group input[type="submit"] {
     width: 73%;
     border-radius: 3px;
-    margin-left:110px;
-    margin-top:15px;
-    
+    margin-left: 110px;
+    margin-top: 15px;
+
   }
 }
 
 h3 {
-  color:red;
+  color: red;
 }

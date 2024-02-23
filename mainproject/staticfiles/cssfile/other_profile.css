@@ -19,7 +19,7 @@ body {
   background-position: center;
   height: 300px;
   display: flex;
-  justify-content: flex-end; /* Aligns the follow button to the right */
+  justify-content: flex-end;
 }
 
 .profile-image {
@@ -45,7 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 10px; /* Adjust this value to control the spacing between the background image and the follow button */
+  margin-top: 10px;
 }
 
 .follow-button {
@@ -57,41 +57,75 @@ body {
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 5px;
-  background-color:magenta;
+  background-color: magenta;
 
 }
 
 .follower-count {
   font-size: 16px;
   color: #555;
-  margin-top:295px;
-  
+  margin-top: 295px;
+
 }
 
 
 .seting-button {
-  background-color:brown;
-  color:white;
+  background-color: brown;
+  color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 5px;
-  background-color:magenta;
-  margin-top:320px;
+  background-color: magenta;
+  margin-top: 320px;
 
 }
 
-h3{
+h3 {
   margin-top: 10px;
-  margin-left:140px;
+  margin-left: 140px;
   font-size: 27px;
-  color:brown;
-  margin-bottom:0px;
+  color: brown;
+  margin-bottom: 0px;
 }
 
-h4{
-  font-size: 17px; ;
+h4 {
+  font-size: 17px;
+  ;
   margin-bottom: 0px;
+}
+
+
+h1 {
+  text-align: center;
+  color: darkmagenta;
+}
+
+.gallery {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.image-container {
+  position: relative;
+  border: 1px solid blueviolet;
+  margin: 1px;
+  padding: 2px;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Add responsive styling for mobile screens */
+@media (max-width: 768px) {
+  .gallery {
+    justify-content: flex-start;
+    padding: 0 10px;
+  }
 }

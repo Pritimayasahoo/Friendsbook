@@ -4,10 +4,12 @@ const clickimg = document.getElementById('click-img');
 const subMenu = document.getElementById("subMenu")
 //click the image for show box
 clickimg.addEventListener("click", function () {
-  //add this class if not there or remove that
+  //add this class if not or remove that
   subMenu.classList.toggle("open-menu")
 
 })
+
+
 // Send Lie status to backend asynchronously
 const Like_send = async function (postUrl, postId) {
   try {

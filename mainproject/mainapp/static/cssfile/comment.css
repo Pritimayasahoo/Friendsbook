@@ -6,9 +6,7 @@
 
 .comments {
   height: 450px;
-  /* Set the maximum height to allow scrolling */
   overflow-y: scroll;
-  /* Enable vertical scrolling */
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -63,11 +61,8 @@ input[type="submit"] {
   border: 2px solid green;
   border-radius: 5px;
   min-width: 800px;
-  /* Set the minimum width for the input field */
   height: 40px;
-  /* Set the height for the input field */
   font-size: 16px;
-  /* Set the font size for the input field */
 }
 
 .send-button {
@@ -84,11 +79,24 @@ input[type="submit"] {
 }
 
 .comment-input .send-button {
-  /* Add the new styles here */
   width: 80px;
-  /* Set the desired width, you can adjust this value */
   height: 60px;
-  /* Set the desired height, you can adjust this value */
+}
+
+img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.comment-profile img,
+p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+h4 {
+  margin-top: 0px;
 }
 
 /* For mobile devices */
@@ -100,19 +108,14 @@ input[type="submit"] {
 
   .comment-input .comment-field {
     min-width: calc((100vw *85) / 100);
-    /* Set the minimum width for the input field */
     height: 90px;
-    /* Set the height for the input field */
     margin-top: 5px;
     font-size: 35px;
   }
 
   .comment-input .send-button {
-    /* Add the new styles here */
     width: 120px;
-    /* Set the desired width, you can adjust this value */
     height: 60px;
-    /* Set the desired height, you can adjust this value */
     padding: 0px;
     margin-right: 10px;
     margin-top: 25px;

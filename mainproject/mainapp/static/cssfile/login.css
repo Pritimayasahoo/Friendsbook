@@ -21,7 +21,7 @@ h2 {
 
 .form-group {
     margin-bottom: 10px;
-    margin-right:20px;
+    margin-right: 20px;
 }
 
 input[type="email"],
@@ -40,19 +40,20 @@ button {
     background-color: #4caf50;
     color: #fff;
     cursor: pointer;
-    margin-left:12px;
+    margin-left: 12px;
 }
 
 .signup-link {
     text-align: center;
     margin-top: 10px;
 }
-h5 {
-    color:red;
-    padding-left:55px;
-    font-size:17px;
-  }
 
-#forgot{
-    margin-left:140px; 
-}  
+h5 {
+    color: red;
+    padding-left: 55px;
+    font-size: 17px;
+}
+
+#forgot {
+    margin-left: 140px;
+}

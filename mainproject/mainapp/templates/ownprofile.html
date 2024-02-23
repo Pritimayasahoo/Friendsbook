@@ -10,51 +10,33 @@
   </head>
   <body>
     <div class="profile-container">
-      <div
-        class="profile-header"
-        style="background-image: url('{{ profile.backgroundimage.url }}');"
-      >
+      <div class="profile-header" style="background-image: url('{{ profile.backgroundimage.url }}');">
         <div class="profile-image">
-          <img
-            loading="lazy"
-            src="{{profile.profileimage.url}}"
-            alt="Profile Image"
-          />
+          <img loading="lazy" src="{{ profile.profileimage.url }}" alt="Profile Image" />
         </div>
         <div class="follow-container">
-          {%if number == 0%}
-          <span class="follower-count">NO FOLLOWERS</span>
-          {%elif number == 1%}
-          <span class="follower-count">1 FOLLOWER</span>
-          {%else%}
-          <span class="follower-count">{{number}} FOLLOWERS</span>
-          {%endif%}
-          <button
-            class="follow-button"
-            onclick="window.location.href='/editprof/'"
-          >
-            EDIT PROFILE
-          </button>
+          {% if number == 0 %}
+            <span class="follower-count">NO FOLLOWERS</span>
+          {% elif number == 1 %}
+            <span class="follower-count">1 FOLLOWER</span>
+          {% else %}
+            <span class="follower-count">{{ number }} FOLLOWERS</span>
+          {% endif %}
+          <button class="follow-button" onclick="window.location.href='/editprof/'">EDIT PROFILE</button>
         </div>
       </div>
-      <h3>{{profile.name}}</h3>
-      <h4>{{profile.about}}</h4>
-      <div class="joined-date">
-        Joined: {{profile.user_create|date:"F j Y"}}
-      </div>
+      <h3>{{ profile.name }}</h3>
+      <h4>{{ profile.about }}</h4>
+      <div class="joined-date">Joined: {{ profile.user_create|date:'F j Y' }}</div>
     </div>
 
     <h1>Image Gallery</h1>
     <div class="gallery">
-      {%for post in posts%}
-      <img
-        loading="lazy"
-        width="700"
-        src="{{post.my_post.url}}"
-        data-postid="{{post.id}}"
-        onclick="showConfirmation(event)"
-      />
-      {%endfor%}
+      {% for post in posts %}
+        <div class="image-container">
+          <img loading="lazy" width="700" src="{{ post.my_post.url }}" data-postid="{{ post.id }}" onclick="showConfirmation(event)" />
+        </div>
+      {% endfor %}
     </div>
 
     <div id="confirmationBox" class="hidden">

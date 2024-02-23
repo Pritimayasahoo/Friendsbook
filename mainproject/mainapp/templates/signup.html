@@ -10,11 +10,11 @@
   <body>
     <div class="container">
       {% for message in messages %}
-      <h3>{{message}}</h3>
+        <h3>{{ message }}</h3>
       {% endfor %}
       <h2>Signup</h2>
       <form method="POST" action="">
-        {%csrf_token%}
+        {% csrf_token %}
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required />
@@ -23,12 +23,7 @@
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required />
           <label for="password-again">Password Again:</label>
-          <input
-            type="password"
-            id="password-again"
-            name="password-again"
-            required
-          />
+          <input type="password" id="password-again" name="password-again" required />
           <input type="submit" value="Signup" />
         </div>
       </form>

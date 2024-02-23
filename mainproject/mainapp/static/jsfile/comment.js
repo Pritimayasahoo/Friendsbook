@@ -1,14 +1,15 @@
 const uploadForm = document.getElementById('uploadForm');
 const uploadid = document.getElementById('hide');
 const comment_id = document.getElementById('comment');
-console.log(comment_id)
-console.log(comment)
-const id=uploadid.value
+const id = uploadid.value
 const postUrl = uploadForm.dataset.postUrl;
+const recentUser = document.getElementById("hidden");
+const profileImageUrl = document.getElementById("profileImageUrl").value;
 const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-//recent commenter
+//recent comment poster
 const commentByInput = document.getElementById('commentBy');
 const commentposter = commentByInput.value;
+
 
 // Function to scroll to the bottom of the comments section
 function scrollToBottom() {
@@ -16,71 +17,70 @@ function scrollToBottom() {
   commentBlock.scrollTop = commentBlock.scrollHeight;
 }
 
+
 // Scroll to the bottom on page load (when the DOM is ready)
 document.addEventListener('DOMContentLoaded', () => {
   scrollToBottom();
 });
 
 
-console.log(postUrl)
-    //const errorDiv = document.getElementById('error-message');
-    
-    uploadForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const comment=comment_id.value
-      const message=comment
-      comment_id.value=""
-      //const fileInput = document.getElementById('image');
-      //const file = fileInput.files[0];
-    
-      //if (!file) {
-      //  errorDiv.textContent = 'Please select an image file.';
-      //  return;
-      //}
-    
-      const formData = new FormData();
-      formData.append('comment', comment);
-      formData.append('id', id);
-    
-      //let reader = new FileReader();
-      //reader.readAsDataURL(file);
-    
-    
-            //use the url postUrl(grab on the top) to go to the postviews
-            fetch(postUrl, {
-              method: 'POST',
-              headers: {
-                'X-CSRFToken': csrfToken,
-              },
-              body: formData,
-            })
-              .then((response) => {
-                console.log(response)
-                const commentElement = document.createElement('div');
-                commentElement.classList.add('comment'); // Ensure it has the same class as other comments
+//Asynchronously send comment to backend
+let Send_comment = async function (postUrl, formData, comment) {
+  try {
+    const response = await fetch(postUrl, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken,
+      },
+      body: formData,
+    })
 
-                const commentBy = document.createElement('h1');
-                commentBy.textContent = `Comment by: ${commentposter}`;
-                const commentmessage=document.createElement('h3')
-                commentmessage.textContent=`${message}`
-                commentElement.appendChild(commentBy);
-                commentElement.appendChild(commentmessage)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment'); // Ensure it has the same class as other comments
 
-                //const commentText = document.createElement('h3');
-                //commentText.textContent = newComment.text;
-                //commentElement.appendChild(commentText);
+    const comment_profile = document.createElement('div')
+    comment_profile.classList.add('comment-profile')
 
-                // Append the newly created comment element to the comments section
-                const commentsSection = document.getElementById('comment_block');
-                commentsSection.appendChild(commentElement);
-                //Scrool to bottom
-                scrollToBottom();
-                // Handle server response here
-                //window.location.href = '/';
-              })
-              .catch((error) => {
-                // Handle error
-                console.log(error)
-              });
-    });
-    
+    const img = new Image();
+    img.src = profileImageUrl;
+
+    const commentBy = document.createElement('p');
+    commentBy.textContent = `${commentposter}`;
+    const commentmessage = document.createElement('h4')
+    commentmessage.textContent = `${comment}`
+
+    comment_profile.appendChild(img)
+    comment_profile.appendChild(commentBy)
+    comment_profile.appendChild(commentmessage)
+
+    commentElement.appendChild(comment_profile);
+
+    // Append the newly created comment element to the comments section
+    const commentsSection = document.getElementById('comment_block');
+    commentsSection.appendChild(commentElement);
+    scrollToBottom();
+
+  }
+  catch (error) {
+    console.error('There was a problem fetching the data:', error);
+  }
+
+}
+
+uploadForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const comment = comment_id.value
+  comment_id.value = ""
+  const formData = new FormData();
+  formData.append('comment', comment);
+  formData.append('id', id);
+  //Send Message Asynchronously
+  Send_comment(postUrl, formData, comment)
+
+});
+
+
+

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'cssfile/new_profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'cssfile/other_profile.css' %}" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New profile</title>
@@ -10,85 +10,68 @@
 
   <body>
     <div class="profile-container">
-      <div
-        class="profile-header"
-        style="background-image: url('{{ profile.backgroundimage.url }}');"
-      >
+      <div class="profile-header" style="background-image: url('{{ profile.backgroundimage.url }}');">
         <div class="profile-image">
-          <img src="{{profile.profileimage.url}}" alt="Profile Image" />
+          <img src="{{ profile.profileimage.url }}" alt="Profile Image" />
         </div>
         <div class="follow-container">
-          {%if number == 0%}
-          <span class="follower-count" id="followers">NO FOLLOWERS</span>
-          {%elif number == 1%}
-          <span class="follower-count" id="followers">1 FOLLOWER</span>
-          {%else%}
-          <span class="follower-count" id="followers">{{number}} FOLLOWERS</span>
-          {%endif%}
-          <button
-            class="follow-button" id="follow"        
-          >
-            {{button}}
-          </button>
+          {% if number == 0 %}
+            <span class="follower-count" id="followers">NO FOLLOWERS</span>
+          {% elif number == 1 %}
+            <span class="follower-count" id="followers">1 FOLLOWER</span>
+          {% else %}
+            <span class="follower-count" id="followers">{{ number }} FOLLOWERS</span>
+          {% endif %}
+          <button class="follow-button" id="follow">{{ button }}</button>
         </div>
       </div>
-      <h3>{{profile.name}}</h3>
-      <h4>{{profile.about}}</h4>
-      <div class="joined-date">
-        Joined: {{profile.user_create|date:"F j Y"}}
-      </div>
+      <h3>{{ profile.name }}</h3>
+      <h4>{{ profile.about }}</h4>
+      <div class="joined-date">Joined: {{ profile.user_create|date:'F j Y' }}</div>
     </div>
-    {% for post in posts %}
-      <img
-        loading="lazy"
-        width="700"
-        src="{{post.my_post.url}}"
-        data-postid="{{post.id}}"
-      />
-    {%endfor%}
-    <input type="hidden" value="{{person_id}}" id="person_id">
+    <h1>Image Gallery</h1>
+    <div class="gallery">
+      {% for post in posts %}
+        <div class="image-container">
+          <img loading="lazy" width="700" src="{{ post.my_post.url }}" data-postid="{{ post.id }}" />
+        </div>
+      {% endfor %}
+    </div>
+    <input type="hidden" value="{{ person_id }}" id="person_id" />
   </body>
 
   <script>
     // Send Lie status to backend asynchronously
-    const Followers=document.getElementById('followers');
-    const follow=document.getElementById('follow')
-    const person_id=document.getElementById('person_id')
-    const person_id_value=person_id.value
-    console.log(person_id_value,"this is id")
-
-
-const Follow_click = async function (person_id_value) {
-  try {
-    const response = await fetch(`/follow/?user_id=${person_id_value}`)
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    const Followers = document.getElementById('followers')
+    const follow = document.getElementById('follow')
+    const person_id = document.getElementById('person_id')
+    const person_id_value = person_id.value
+    console.log(person_id_value, 'this is id')
+    
+    const Follow_click = async function (person_id_value) {
+      try {
+        const response = await fetch(`/follow/?user_id=${person_id_value}`)
+    
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const data = await response.json()
+        // Update the like count on the frontend
+        if (data.followers == 0) {
+          Followers.textContent = `NO FOLLOWERS`
+        } else if (data.followers == 1) {
+          Followers.textContent = `1 FOLLOWER`
+        } else {
+          Followers.textContent = `${data.followers} FOLLOWERS`
+        }
+        follow.textContent = data.button
+      } catch (error) {
+        console.error('There was a problem fetching the data:', error)
+      }
     }
-    const data = await response.json()
-    // Update the like count on the frontend
-    if (data.followers == 0) {
-      Followers.textContent = `NO FOLLOWERS`;
-    }
-    else if (data.followers == 1) {
-      Followers.textContent = `1 FOLLOWER`;
-    }
-    else {
-      Followers.textContent = `${data.followers} FOLLOWERS`;
-    }
-    follow.textContent=data.button
-
-  }
-  catch (error) {
-    console.error('There was a problem fetching the data:', error);
-  }
-
-}
-
-follow.addEventListener("click", function () {
-  
-  Follow_click(person_id_value)
-
-})
+    
+    follow.addEventListener('click', function () {
+      Follow_click(person_id_value)
+    })
   </script>
 </html>

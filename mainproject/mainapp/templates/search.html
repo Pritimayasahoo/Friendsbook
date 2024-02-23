@@ -3,51 +3,40 @@
   <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'cssfile/search.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
-    <form
-      id="like-url"
-      class="search-form"
-      action="/search/"
-      method="POST"
-      data-post-url="{% url 'like' %}"
-    >
-      {%csrf_token%}
+    <form id="like-url" class="search-form" action="/search/" method="POST" data-post-url="{% url 'like' %}">
+      {% csrf_token %}
       <div class="search-bar">
-        <input
-          class="space search-input"
-          type="text"
-          name="searchname"
-          placeholder="Search"
-          required
-        />
-        <button class="search-button" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
+        <input class="space search-input" type="text" name="searchname" placeholder="Search" required />
+        <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
         <br />
       </div>
     </form>
-    {%for profile in profiles%}
-    {% if profile.user == user %}
-      <div class="searchresult">
-        <img width="200" src="{{profile.profileimage.url}}" />
-        <a href="/ownprofile/">{{profile.name}}</a>
-        <p>{{profile.no_of_followers}} Followers</p>
-      </div>
-    {% else %}  
-      <div class="searchresult">
-        <img width="200" src="{{profile.profileimage.url}}" />
-        <a href="/prof/?myuser={{profile.id}}">{{profile.name}}</a>
-        <p>{{profile.no_of_followers}} Followers</p>
-      </div>
-    {% endif %}
-    {%endfor%}
+    <div class="search-container">
+      {% for profile in profiles %}
+        <div class="searchresult">
+          {% if profile.user == user %}
+            <img width="200" src="{{ profile.profileimage.url }}" />
+            <a href="/ownprofile/">{{ profile.name }}</a>
+          {% else %}
+            <img width="200" src="{{ profile.profileimage.url }}" />
+            <a href="/prof/?myuser={{ profile.id }}">{{ profile.name }}</a>
+          {% endif %}
+
+          {% if profile.no_of_followers == 0 %}
+            <p>No Followers</p>
+          {% elif profile.no_of_followers == 1 %}
+            <p>1 Follower</p>
+          {% else %}
+            <p>{{ profile.no_of_followers }} Followers</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
   </body>
 </html>

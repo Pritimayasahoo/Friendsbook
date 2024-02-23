@@ -27,16 +27,17 @@ def home(request):
     all_post = list(all_post)
     random.shuffle(all_post)
     user_profile = Profile.objects.filter(user=request.user).first()
-    context={'profile': user_profile, 'name': request.user, 'all_post': all_post}
-    return render(request, 'home.html',context)
+    context = {'profile': user_profile,
+               'name': request.user, 'all_post': all_post}
+    return render(request, 'home.html', context)
 
 
-'''FROM LINE 36 TO 374 CREDENTIAL RELATED LOGIC '''
+
+'''FROM LINE 39 TO 377 CREDENTIAL RELATED LOGIC '''
 
 
 # OTP Template For Signup OTP
 def Signu_otp(name, email, otp):
-    print(email)
     url = "https://control.msg91.com/api/v5/email/send"
     payload = {
         'to': [{'name': name, 'email': email}],
@@ -53,15 +54,13 @@ def Signu_otp(name, email, otp):
     }
     response = requests.post(url, data=payload, headers=headers)
     if response.status_code == 200:
-        print("sucess")
         return True
     else:
-        print("none")
         return False
+
 
 # OTP Template For Login OTP
 def Login_otp(name, email, otp):
-    print(email)
     url = "https://control.msg91.com/api/v5/email/send"
     payload = {
         'to': [{'name': name, 'email': email}],
@@ -78,15 +77,13 @@ def Login_otp(name, email, otp):
     }
     response = requests.post(url, data=payload, headers=headers)
     if response.status_code == 200:
-        print("sucess")
         return True
     else:
-        print("none")
         return False
+
 
 # OTP Template For Forgot OTP
 def Forgot_otp(name, email, otp):
-    print(email)
     url = "https://control.msg91.com/api/v5/email/send"
     payload = {
         'to': [{'name': name, 'email': email}],
@@ -103,11 +100,10 @@ def Forgot_otp(name, email, otp):
     }
     response = requests.post(url, data=payload, headers=headers)
     if response.status_code == 200:
-        print("sucess")
         return True
     else:
-        print("none")
         return False
+
 
 # Signup A User -->Go To Signup Page
 def signup(request):
@@ -154,6 +150,7 @@ def signup(request):
         return redirect('signup_otp')
     return render(request, 'signup.html')
 
+
 # Login A User -->Go To Login Page
 def loguser(request):
     if request.method == 'POST':
@@ -192,6 +189,7 @@ def loguser(request):
         return redirect('loguser')
     return render(request, 'login.html')
 
+
 # Go To Forgot_Password Page
 def forgotpassword(request):
     if request.method == 'POST':
@@ -220,6 +218,7 @@ def forgotpassword(request):
             messages.info(request, 'User Not Exist')
             return redirect('forgot')
     return render(request, 'forgotpassword.html')
+
 
 # OTP Verification Logic During Signup Time
 def Signup_otp_check(request):
@@ -269,6 +268,7 @@ def Signup_otp_check(request):
             messages.info(request, 'Some Thing Went Wrong')
             return redirect('signup_otp')
     return render(request, 'otp.html')
+
 
 # OTP Verification Logic During Login Time
 def Login_otp_check(request):
@@ -330,6 +330,7 @@ def Login_otp_check(request):
         return redirect('login_otp')
     return render(request, 'otp.html')
 
+
 # OTP Verification Logic During Forgot_Password Setup Time
 def Forgot_otp_check(request):
     if request.method == 'POST':
@@ -368,6 +369,7 @@ def Forgot_otp_check(request):
         return redirect('forgot_otp')
     return render(request, 'forgototp.html')
 
+
 # Log_Out Current User
 @login_required(login_url='/loguser/')
 def logout(request):
@@ -375,7 +377,8 @@ def logout(request):
     return redirect('/loguser/')
 
 
-'''FROM LINE 380 TO 490 USERS PROFILE RELATED LOGIC'''
+
+'''FROM LINE 384 TO 506 USERS PROFILE RELATED LOGIC'''
 
 
 # Create And Edit Profile
@@ -388,11 +391,11 @@ def create_profile(request):
         if request.FILES.get('profile_image'):
             profile_image = request.FILES.get('profile_image')
         else:
-            profile_image = default_image
+            profile_image = myprofile.profileimage 
         if request.FILES.get('cover_image'):
             cover_image = request.FILES.get('cover_image')
         else:
-            cover_image = default_cover_image
+            cover_image = myprofile.backgroundimage
 
         name = request.POST['name']
         about = request.POST['about']
@@ -418,7 +421,8 @@ def create_profile(request):
             'school': school
         }
         return render(request, 'owneditprofile.html', context)
-    
+
+
 # Visit Current User Profile
 @login_required(login_url='/loguser')
 def Own_profile(request):
@@ -434,6 +438,7 @@ def Own_profile(request):
     }
     return render(request, 'ownprofile.html', context)
 
+
 # Visit Other Users Profile
 @login_required(login_url='/loguser')
 def Other_profile(request):
@@ -441,8 +446,8 @@ def Other_profile(request):
     user_profile = Profile.objects.filter(id=user_id).first()
     my_user = request.user
     person_obj = user_profile.user
-    all_post=Post.objects.filter(
-            Q(postshow=True) & Q(post_by=person_obj)).all()
+    all_post = Post.objects.filter(
+        Q(postshow=True) & Q(post_by=person_obj)).all()
     person_id = person_obj.id
     follower_exist = Followerscount.objects.filter(
         follower=my_user, user=person_obj).first()
@@ -457,9 +462,10 @@ def Other_profile(request):
         'number': allfollow,
         'profile': user_profile,
         'user': person_obj,
-        'posts':all_post
+        'posts': all_post
     }
     return render(request, 'other_profile.html', context)
+
 
 # Search A User Profile
 @login_required(login_url='/loguser')
@@ -470,6 +476,7 @@ def Search(request):
         return render(request, 'search.html', {'profiles': users})
     else:
         return redirect('/')
+
 
 # Follow A User Profile
 @login_required(login_url='/loguser')
@@ -483,20 +490,24 @@ def Follow(request):
         follower=current_user, user=user).first()
     if follower_exist:
         follower_exist.delete()
-        button ='FOLLOW'
-        #return redirect(f'/prof/?myuser={profile_id}')
+        user_profile.no_of_followers -= 1
+        user_profile.save()
+        button = 'FOLLOW'
     else:
         Followerscount.objects.create(follower=current_user, user=user)
+        user_profile.no_of_followers += 1
+        user_profile.save()
         button = 'UNFOLLOW'
-        #return redirect(f'/prof/?myuser={profile_id}')
-    followers=Followerscount.objects.filter(user=user)
+    followers = Followerscount.objects.filter(user=user)
     data = {
-        'followers':len(followers),
-        'button':button
+        'followers': len(followers),
+        'button': button
     }
     return JsonResponse(data)
 
-'''FROM LINE 453 TO 479 POST IMAGE RELATED LOGIC'''
+
+
+'''FROM LINE 513 TO 541 POST IMAGE RELATED LOGIC'''
 
 
 # Go To Image Post Page
@@ -530,7 +541,8 @@ def Deletepic(request):
         return redirect('/')
 
 
-'''FROM LINE 530 TO 580 IMAGE LIKE AND COMMENT RELATED LOGIC'''
+
+'''FROM LINE 548 TO 601 IMAGE LIKE AND COMMENT RELATED LOGIC'''
 
 
 # Like A Image
@@ -553,6 +565,7 @@ def like_check(request):
     }
     return JsonResponse(data)
 
+
 # Go To Comment Page Of A Image
 @login_required(login_url='/loguser')
 def Showcomment(request, post_id):
@@ -560,6 +573,7 @@ def Showcomment(request, post_id):
     current_post = Post.objects.filter(id=post_id).first()
     allcomments = Comment.objects.filter(comment_post=current_post)
     recent_user = Profile.objects.filter(user=user).first()
+
     context = {
         'user': user,
         'allcomments': allcomments,
@@ -567,6 +581,7 @@ def Showcomment(request, post_id):
         'recent_user': recent_user
     }
     return render(request, 'comment.html', context)
+
 
 # Save A New Comment In Database
 @login_required(login_url='/loguser')
@@ -584,6 +599,7 @@ def Createcomment(request):
         current_post.save()
         user_profile.save()
         return JsonResponse({'success': True})
+
 
 # Custom Error Page
 def page_not_found(request, exception):
